@@ -1,0 +1,10 @@
+#include "aerosim_data/msg/timestamp.idl" // Include timestamp
+
+module aerosim_data {
+  module msg {
+    struct Header {
+        aerosim_data/msg/TimeStamp stamp;  // Use the included type
+        string frame_id;
+    };
+  };
+};

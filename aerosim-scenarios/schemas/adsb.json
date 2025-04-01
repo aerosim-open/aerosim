@@ -1,0 +1,21 @@
+{
+    "type": "object",
+    "description": "Configuration for ADSB sensors",
+    "properties": {
+      "frequency": {
+        "type": "number",
+        "description": "Operating frequency of the ADSB in MHz"
+      },
+      "range": {
+        "type": "number",
+        "description": "Detection range of the ADSB in kilometers"
+      },
+      "data_rate": {
+        "type": "number",
+        "description": "Data rate of the ADSB in kbps"
+      }
+    },
+    "required": ["frequency", "range", "data_rate"],
+    "additionalProperties": false
+}
+  

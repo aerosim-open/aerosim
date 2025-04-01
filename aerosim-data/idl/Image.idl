@@ -1,0 +1,15 @@
+#include "aerosim_data/msg/header.idl" //Include header in compressed image
+
+module aerosim_data {
+  module msg { // Add 'msg' submodule
+    struct Image{
+        aerosim_data/msg/Header header; // Add header with TimeStamp
+        uint32 height;
+        uint32 width;
+        string encoding;
+        uint8 is_bigendian;
+        uint32 step;
+        sequence<uint8> data;
+    };
+  };
+};

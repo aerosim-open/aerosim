@@ -1,0 +1,39 @@
+{
+    "type": "object",
+    "properties": {
+      "trajectory": {
+        "type": "array",
+        "description": "List of waypoints in the trajectory",
+        "items": {
+          "type": "object",
+          "properties": {
+            "timestamp": {
+              "type": "number",
+              "description": "Timestamp of the checkpoint in seconds format"
+            },
+            "latitude": {
+              "type": "number",
+              "description": "Latitude in decimal degrees",
+              "minimum": -90,
+              "maximum": 90
+            },
+            "longitude": {
+              "type": "number",
+              "description": "Longitude in decimal degrees",
+              "minimum": -180,
+              "maximum": 180
+            },
+            "height": {
+              "type": "number",
+              "description": "Height in meters above sea level"
+            }
+          },
+          "required": ["timestamp", "latitude", "longitude", "height"],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": ["trajectory"],
+    "additionalProperties": false
+}
+  

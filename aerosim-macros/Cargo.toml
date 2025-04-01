@@ -1,0 +1,12 @@
+[package]
+name = "aerosim-macros"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "aerosim_macros"
+proc-macro = true
+
+[dependencies]
+syn = "2.0.96"
+quote = "1.0.38"

@@ -1,0 +1,128 @@
+{
+  "type": "object",
+  "description": "Configuration for a vertiport",
+  "properties": {
+    "vertiport_id": { 
+      "type": "string",
+      "description": "Unique identifier for the vertiport"
+    },
+    "usd": {
+      "type": "string",
+      "description": "Path to the USD file",
+      "format": "uri"
+    },
+    "description": { 
+      "type": "string",
+      "description": "Description of the vertiport"
+    },
+    "transform": {
+      "type": "object",
+      "description": "Optional transform for the actor",
+      "properties": {
+        "translation": {
+          "type": "array",
+          "description": "Translation as [x, y, z]",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "rotation": {
+          "description": "Rotation can be defined as Euler angles or quaternions",
+          "oneOf": [
+            {
+              "type": "array",
+              "description": "Euler angles [roll, pitch, yaw] in degrees",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 3,
+              "maxItems": 3
+            },
+            {
+              "type": "array",
+              "description": "Quaternion [x, y, z, w] (unit quaternion)",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 4,
+              "maxItems": 4
+            }
+          ]
+        },
+        "scale": {
+          "type": "array",
+          "description": "Scale as [x, y, z]",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
+      "required": ["translation", "rotation", "scale"],
+      "additionalProperties": false
+    },
+    "pad_configuration": {
+      "type": "object",
+      "description": "Configuration of vertipads managed by the vertiport",
+      "properties": {
+        "total_pads": {
+          "type": "integer",
+          "description": "Number of vertipads managed by the vertiport"
+        },
+        "default_pad_size": {
+          "type": "number",
+          "description": "Default size of each vertipad in meters"
+        },
+        "default_pad_status": {
+          "type": "string",
+          "description": "Default status of the vertipads",
+          "enum": ["free", "occupied", "maintenance"],
+          "default": "free"
+        },
+        "relative_positions": {
+          "type": "array",
+          "description": "Relative positions of pads as [x, y, z] offsets from the vertiport",
+          "items": {
+            "type": "array",
+            "items": { "type": "number" },
+            "minItems": 3,
+            "maxItems": 3
+          }
+        },
+        "relative_orientation": {
+          "type": "array",
+          "description": "Relative orientation of pads as [R, P, Y] or Quaternion [X, Y, Z, W] ",
+          "items": {
+           "oneOf": [
+              {
+                "type": "array",
+                "description": "Euler angles [roll, pitch, yaw] in degrees",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              {
+                "type": "array",
+                "description": "Quaternion [x, y, z, w] (unit quaternion)",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 4,
+                "maxItems": 4
+              }
+            ]
+          }
+        }
+      },
+      "required": ["total_pads", "default_pad_size", "relative_positions"]
+    }
+  },
+  "required": ["vertiport_id", "usd", "transform", "pad_configuration"]
+}
+
+  

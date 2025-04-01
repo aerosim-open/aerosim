@@ -1,0 +1,18 @@
+#include "aerosim_data/msg/Header.idl" //Include header in pose
+#include "aerosim_data/msg/Quaternion.idl" //Include quaternion in pose
+#include "aerosim_data/msg/Vector3.idl" //Include vector3 in pose
+module aerosim_data {
+    module msg {
+        struct Pose {
+            aerosim_data/msg/Header header;
+            aerosim_data/msg/Vector3 position;
+            aerosim_data/msg/Quaternion orientation;
+            // double orientation[4]; // use geometry_msgs/msg/Quaternion for better interoperability with ROS2
+            // double roll;
+            // double pitch;
+            // double yaw;
+            
+
+        };
+    };
+}

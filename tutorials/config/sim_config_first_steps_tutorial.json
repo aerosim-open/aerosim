@@ -1,0 +1,119 @@
+{
+    "description": "First steps tutorial.",
+    "clock": {
+        "step_size_ms": 20,
+        "pace_1x_scale": true
+    },
+    "orchestrator": {
+        "sync_topics": [
+            {
+                "topic": "aerosim.actor1.vehicle_state",
+                "interval_ms": 20
+            }
+        ]
+    },
+    "world": {
+        "update_interval_ms": 20,
+        "origin": {
+            "latitude": 41.293222,
+            "longitude": 2.067261,
+            "altitude": 51
+        },
+        "weather": {
+            "preset": "Cloudy"
+        },
+        "actors": [
+            {
+                "actor_name": "actor1",
+                "actor_asset": "vehicles/generic_helicopter/generic_helicopter",
+                "parent": "",
+                "description": "Generic helicopter model",
+                "transform": {
+                    "position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        66.5
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "state": {
+                    "msg_type": "aerosim::types::VehicleState",
+                    "topic": "aerosim.actor1.vehicle_state"
+                },
+                "effectors": []
+            }
+        ],
+        "sensors": [
+            {
+                "sensor_name": "rgb_camera_0",
+                "type": "sensors/cameras/rgb_camera",
+                "parent": "actor1",
+                "transform": {
+                    "translation": [
+                        17.0,
+                        -13.0,
+                        -5.0
+                    ],
+                    "rotation": [
+                        0.0,
+                        -10.0,
+                        140.0
+                    ]
+                },
+                "parameters": {
+                    "resolution": [
+                        1920,
+                        1080
+                    ],
+                    "tick_rate": 0.02,
+                    "frame_rate": 30,
+                    "fov": 90,
+                    "near_clip": 0.1,
+                    "far_clip": 1000.0,
+                    "capture_enabled": false
+                }
+            }
+        ]
+    },
+    "renderers": [
+        {
+            "renderer_id": "0",
+            "role": "primary",
+            "sensors": [
+                "rgb_camera_0"
+            ],
+            "viewport_config": {
+                "active_camera": "rgb_camera_0"
+            }
+        }
+    ],
+    "fmu_models": [
+        {
+            "id": "first_steps_fmu",
+            "fmu_model_path": "fmu/first_steps_fmu.fmu",
+            "component_input_topics": [],
+            "component_output_topics": [
+                {
+                    "msg_type": "aerosim::types::VehicleState",
+                    "topic": "aerosim.actor1.vehicle_state"
+                }
+            ],
+            "fmu_aux_input_mapping": {},
+            "fmu_aux_output_mapping": {},
+            "fmu_initial_vals": {
+                "init_pos_north": 0.0,
+                "init_pos_east": 0.0,
+                "init_pos_down": 0.0
+            }
+        }
+    ]
+}

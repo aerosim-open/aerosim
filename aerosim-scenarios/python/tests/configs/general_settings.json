@@ -1,0 +1,7 @@
+{
+    "type": "general_settings",
+    "description": "General settings for the simulation.",
+    "max_actors": 100,
+    "default_timeofday": "morning"
+}
+  

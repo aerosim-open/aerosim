@@ -1,0 +1,55 @@
+[project]
+name = "aerosim"
+version = "0.1.0"
+description = "AeroSim"
+authors = [
+    { name = "Praveen Palanisamy", email = "4770482+praveen-palanisamy@users.noreply.github.com" },
+]
+
+dependencies = [
+    "websockets>=11.0.0",
+    "pygame>=2.6.1",
+    "opencv-python>=4.11.0.86",
+    "numpy>=2.2.3",
+]
+
+readme = "README.md"
+requires-python = ">= 3.12"
+
+[build-system]
+requires = ["maturin>=1.5,<2.0", "rye"]
+build-backend = "maturin"
+
+[tool.maturin]
+# Define maturin-specific options
+mixed = true
+python-source = "."
+module-name = "aerosim"
+features = ["pyo3/extension-module"]
+cargo-extra-args = "--workspace"
+# Skip the build script when maturin is used as a build backend
+# This prevents build.py from being called twice
+skip-build-script = true
+# Include example scripts and configuration files in the package
+include = ["examples/**/*", "config/**/*"]
+
+[tool.rye]
+managed = true
+virtual = true
+dev-dependencies = [
+    "pytest>=8.3.4",
+    "pygame>=2.6.1",
+    "mkdocs>=1.6.1",
+    "mcap==1.2.2",
+    "websockets>=11.0.0",
+    "maturin>=1.5,<2.0",
+    "opencv-python>=4.11.0.86",
+    "numpy>=2.2.3",
+    "black>=25.1.0",
+]
+
+[tool.rye.workspace]
+members = ["aerosim*"]
+
+[tool.rye.scripts]
+build = { cmd = ["python", "build.py"] }

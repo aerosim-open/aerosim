@@ -1,0 +1,23 @@
+#include "aerosim_data/msg/Header.idl"
+#include "aerosim_data/msg/Pose.idl"
+#include "aerosim_data/msg/Vector3.idl"
+#include "aerosim_data/msg/Quaternion.idl"
+
+module aerosim_data {
+    module core {
+        struct Actor {
+            aerosim_data/msg/Header header;
+            uint32 uid;        // unique id identifier for this actor
+            string actor_name; // actor name
+            uint32 actor_type; // identifier for actor type
+            uint64 parent_uid;  // ID of the parent actor
+            string semantics;  // Semantics of this actor
+            aerosim_data/msg/Pose Vector3;  // Position of this actor x y z meters from world origin
+            Vector3 velocity;   // Velocity vector of this actor in m/s
+            Vector3 acceleration; // Acceleration vector of this actor in m/s^2
+            float64 mass;       // Mass of this actor in kg
+            double latitude;   // latitude for this actor
+            double longitude;  // longitude for this actor
+        }
+    }
+}

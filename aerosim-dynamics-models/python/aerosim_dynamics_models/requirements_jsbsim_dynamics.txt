@@ -1,0 +1,3 @@
+jsbsim
+scipy
+numpy

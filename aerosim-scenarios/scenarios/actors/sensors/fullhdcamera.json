@@ -1,0 +1,12 @@
+{
+    "sensor": {
+      "id": "fullhdcamera",
+      "type": "Rgbcamera",
+      "RGBCameraParameters": {
+        "resolution": [1920, 1080],
+        "frame_rate": 30,
+        "field_of_view": 90
+      }
+    }
+}
+  

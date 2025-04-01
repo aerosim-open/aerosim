@@ -1,0 +1,28 @@
+{
+    "vertiport_id": "vertiport_001",
+    "description": "Main city vertiport.",
+    "location": {
+      "latitude": 37.7749,
+      "longitude": -122.4194,
+      "altitude": 15
+    },
+    "orientation": [0, 0, 0, 1],
+    "pad_configuration": {
+      "total_pads": 4,
+      "default_pad_size": 10,
+      "default_pad_status": "free",
+      "relative_positions": [
+        [0, 0, 0],
+        [10, 0, 0],
+        [0, 10, 0],
+        [10, 10, 0]
+      ],
+      "relative_orientation": [
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]
+      ]
+    }
+}
+  

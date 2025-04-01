@@ -1,0 +1,37 @@
+networks:
+  bridge:
+    driver: bridge
+
+services:
+  aerosim:
+    build:
+      context: .
+      dockerfile: Dockerfile.ovkit105
+    image: aerosim:ovkit105
+    container_name: aerosim-ovkit105
+    ports:
+      - "127.0.0.1:9092:9092"
+    volumes:
+      - .:/app/aerosim
+    environment:
+      - KAFKA_CLUSTER_ID="aerosimkafkaclusterID0"
+    env_file:
+      - .env
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    networks:
+      - bridge
+  
+  aerosim-ros2:
+    build:
+      context: .
+      dockerfile: Dockerfile.ros2
+    image: aerosim:ros2
+    container_name: aerosim-ros2-jazzy
+    volumes:
+      - .:/app/aerosim

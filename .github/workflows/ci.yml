@@ -1,0 +1,205 @@
+name: AeroSim CI
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches: [ main, dev ]
+  workflow_dispatch:  # Allow manual trigger
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  check-pr-status:
+    runs-on: ubuntu-22.04
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Check if PR is draft
+        if: github.event.pull_request.draft
+        run: |
+          echo "::notice::Skipping CI workflow - PR is in draft state"
+          exit 0
+
+  container:
+    needs: check-pr-status
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image_tag: ${{ steps.meta.outputs.tags }}
+    if: |
+      (github.event_name != 'pull_request' || !github.event.pull_request.draft) &&
+      (
+        true ||
+        github.event_name == 'push' ||
+        github.event_name == 'workflow_dispatch' ||
+        contains(github.event.pull_request.changed_files, 'docker/') ||
+        contains(github.event.pull_request.changed_files, '.github/workflows/') ||
+        contains(github.event.pull_request.changed_files, '**/requirements.txt') ||
+        contains(github.event.pull_request.changed_files, '**/pyproject.toml') ||
+        contains(github.event.pull_request.changed_files, '**/Cargo.toml') ||
+        contains(github.event.pull_request.changed_files, '**/Cargo.lock')
+      )
+
+    steps:
+    - uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: |
+          ${{ secrets.SSH_PRIVATE_KEY_AEROSIM_GHACTIONS_AEROSIM}}
+          ${{ secrets.SSH_PRIVATE_KEY_AEROSIM_GHACTIONS_OVKITAPP}}
+          ${{ secrets.SSH_PRIVATE_KEY_AEROSIM_GHACTIONS_UEAPP}}
+        log-public-key: false
+
+    - uses: actions/checkout@v4
+      with:
+        lfs: true
+
+    - name: Log in to the Container registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        tags: |
+          type=sha,format=long
+          type=ref,event=branch
+          type=ref,event=pr
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+        version: latest
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: ./docker/Dockerfile
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        ssh: |
+          default=${{ env.SSH_AUTH_SOCK }}
+
+  build-and-test:
+    needs: container
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-22.04]
+
+    steps:
+    - name: Log in to the Container registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Pull the pre-build Docker image
+      run: |
+        echo "Pulling image $(echo "${{ needs.container.outputs.image_tag }}" | head -n 1)"
+        docker pull $(echo "${{ needs.container.outputs.image_tag }}" | head -n 1)
+
+    - name: Build and Test Rust Components
+      run: |
+        docker run --rm $(echo "${{ needs.container.outputs.image_tag }}" | head -n 1) bash -c '
+          # Set the CI environment variable
+          export CI=true
+
+          # Display environment information for debugging
+          echo "===== Environment Information ====="
+          echo "OS: $(uname -a)"
+          echo "User: $(whoami)"
+          echo "Working directory: $(pwd)"
+          
+          echo "===== Rust and Cargo ====="
+          rustc --version
+          cargo --version
+          rustup target list --installed
+          
+          echo "===== Python and Rye ====="
+          python --version
+          rye --version
+
+          # Execute our comprehensive build_wheels.sh script
+          # This handles all building, wheel generation, and verification
+          bash ./build_wheels.sh
+
+          # Run tests for each component
+          echo "===== Running Tests ====="
+
+          # Test aerosim-controllers
+          echo "Testing aerosim-controllers..."
+          cd aerosim-controllers && cargo test tests --verbose
+          cd ..
+
+          # Test aerosim-data
+          echo "Testing aerosim-data..."
+          cd aerosim-data && cargo test tests --verbose
+          cd ..
+
+          # Test aerosim-dynamics-models
+          echo "Testing aerosim-dynamics-models..."
+          cd aerosim-dynamics-models && cargo test tests --verbose
+          cd ..
+
+          # Test aerosim-scenarios
+          echo "Testing aerosim-scenarios..."
+          cd aerosim-scenarios && cargo test tests --verbose
+          cd ..
+
+          # Test aerosim-sensors
+          echo "Testing aerosim-sensors..."
+          cd aerosim-sensors && cargo test tests --verbose
+          cd ..
+
+          # Test aerosim-world
+          echo "Testing aerosim-world..."
+          cd aerosim-world && cargo test tests --verbose
+          cd ..
+
+          # Test aerosim-world-link
+          echo "Testing aerosim-world-link..."
+          cd aerosim-world-link && cargo test tests --verbose
+          cd ..
+
+          # Final verification
+          echo "===== Build and Test Results ====="
+          echo "Generated wheels:"
+          find dist -name "*.whl" | sort
+        '
+
+    # Test Python packages
+    # - name: Test aerosim-controllers Python bindings
+    #  run: docker run --rm $(echo "${{ needs.container.outputs.image_tag }}" | head -n 1) bash -c 'rye test -p aerosim-controllers'
+
+    # - name: Test aerosim-core Python bindings
+    #  run: docker run --rm $(echo "${{ needs.container.outputs.image_tag }}" | head -n 1) bash -c 'rye test -p aerosim-core'
+
+    # - name: Test aerosim-data Python bindings
+    #  run: docker run --rm $(echo "${{ needs.container.outputs.image_tag }}" | head -n 1) bash -c 'rye test -p aerosim-data'
+
+    # - name: Test aerosim-dynamics-models Python bindings
+    #  run: docker run --rm $(echo "${{ needs.container.outputs.image_tag }}" | head -n 1) bash -c 'rye test -p aerosim-dynamics-models'
+
+    # - name: Test aerosim-scenarios Python bindings
+    #  run: docker run --rm $(echo "${{ needs.container.outputs.image_tag }}" | head -n 1) bash -c 'rye test -p aerosim-scenarios'
+
+    - name: Test aerosim-sensors Python bindings
+      run: docker run --rm $(echo "${{ needs.container.outputs.image_tag }}" | head -n 1) bash -c 'rye test -p aerosim-sensors'
+
+    # - name: Test aerosim-world Python bindings
+    #  run: docker run --rm $(echo "${{ needs.container.outputs.image_tag }}" | head -n 1) bash -c 'rye test -p aerosim-world'

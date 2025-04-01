@@ -1,0 +1,28 @@
+[project]
+name = "aerosim-core"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "Praveen Palanisamy", email = "4770482+praveen-palanisamy@users.noreply.github.com" }
+]
+dependencies = [
+    "pip>=24.0",
+    "maturin>=1.5.1",
+    "pythonfmu3>=0.1.15",
+    "numpy>=2.1.3",
+]
+readme = "README.md"
+requires-python = ">= 3.12"
+
+[build-system]
+requires = ["maturin>=1.2,<2.0"]
+build-backend = "maturin"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.maturin]
+python-source = "python"
+module-name = "aerosim_core._aerocore"
+features = ["pyo3/extension-module"]

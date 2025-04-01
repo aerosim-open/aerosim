@@ -1,0 +1,39 @@
+{
+    "type": "object",
+    "properties": {
+      "sensor": {
+        "type": "object",
+        "description": "Configuration for a single sensor",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the sensor"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of the sensor",
+            "enum": ["LIDAR", "RGB Camera", "ADSB", "Multi_Camera"]
+          },
+          "parameters": {
+            "type": "object",
+            "description": "Specific configuration parameters for the sensor",
+            "$ref": "#/definitions/sensorParameters"
+          }
+        },
+        "required": ["id", "type", "transform", "parameters"],
+        "additionalProperties": false
+      }
+    },
+    "required": ["sensor"],
+    "additionalProperties": false,
+    "definitions": {
+      "sensorParameters": {
+        "oneOf": [
+          { "$ref": "lidar.json#" },
+          { "$ref": "rgb_camera.json#" },
+          { "$ref": "adsb.json#" }
+        ]
+      }
+    }
+}
+  

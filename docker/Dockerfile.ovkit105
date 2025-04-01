@@ -1,0 +1,72 @@
+# Stage OV Kit: Install Omniverse package
+FROM nvcr.io/nvidia/omniverse/kit:105.1.2 AS omniverse-kit
+
+
+# Install Kit services dependencies.
+# This code is pulled from a extension registry and the `--ext-precache-mode` will pull down the extensions and exit.
+RUN /opt/nvidia/omniverse/kit-sdk-launcher/kit \
+    --ext-precache-mode \
+    --enable omni.services.core \
+    --enable omni.services.transport.server.http \
+    --/exts/omni.kit.registry.nucleus/registries/0/name=kit/services \
+    --/exts/omni.kit.registry.nucleus/registries/0/url=https://dw290v42wisod.cloudfront.net/exts/kit/services \
+    --allow-root
+
+# Final Image: Install system dependencies
+FROM ubuntu:22.04 AS aerosim
+
+# Set the working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    cmake \
+    build-essential \
+    openjdk-21-jdk \
+    wget \
+    tar \
+    net-tools \
+    iproute2 \
+    python3 \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Rust and Cargo using rustup
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
+# Install Rye
+RUN curl -sSf https://rye.astral.sh/get | RYE_INSTALL_OPTION="--yes" bash
+
+# Add Rye shims to path
+RUN echo 'source "$HOME/.rye/env"' >> ~/.bashrc
+
+# Install Kafka
+RUN wget https://downloads.apache.org/kafka/3.8.0/kafka_2.13-3.8.0.tgz \
+    && tar -xzf kafka_2.13-3.8.0.tgz
+
+# Set environment variables
+ENV PATH="/root/.cargo/bin:${PATH}"
+ENV PATH="/root/.rye/shims:${PATH}"
+ENV KAFKA_CLUSTER_ID=""
+
+# Copy the aerosim repository to the container
+COPY . /app
+
+# Copy Omniverse kit package from OV Kit stage
+COPY --from=omniverse-kit /opt/nvidia /opt/nvidia
+
+# Setup python environment using rye
+RUN cd aerosim && rye sync
+
+# Build the Omniverse Kit app
+RUN cd aerosim/prototype-v1 && ./repo.sh --verbose build --no-docker
+
+# For display
+RUN apt-get update && apt-get install -y libglu1
+
+# Expose Kafka port
+EXPOSE 9092
+
+# Start the Kafka server
+CMD cd kafka_2.13-3.8.0 && bin/kafka-storage.sh format --ignore-formatted -t $KAFKA_CLUSTER_ID -c config/kraft/server.properties && bin/kafka-server-start.sh config/kraft/server.properties

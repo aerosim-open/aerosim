@@ -1,0 +1,110 @@
+{
+  "scenario_id": "scenario_001",
+  "description": "VTOL ownship with full PMS sensor suite navigating from LA to Catalina Island, encountering two intruder aircraft under clear skies during daytime.",
+  "time_of_day": "daytime",
+  "latitude": 33.3000,
+  "longitude": -118.8000,
+  "height": 100.0,
+  "weather": [
+    {
+      "weather_id": "clear_skies",
+      "config_file": "weather/clear_skies.json"
+    }
+  ],
+  "cesium_height_offset_map": "configs/LA_cesium_geo_height_offset_map.json",
+  "actors": [
+    {
+      "actor_id": "ego",
+      "actor_type": "airplane",
+      "latitude": 33.9192,
+      "longitude": -118.3851,
+      "height": 0.0,
+      "config_file": "actors/vehicles/generic_vtol.json"
+    },
+    {
+      "actor_id": "intruder1",
+      "actor_type": "airplane",
+      "latitude": 33.3000,
+      "longitude": -118.8000,
+      "height": 500.0,
+      "config_file": "actors/vehicles/generic_aircraft.json"
+    },
+    {
+      "actor_id": "intruder2",
+      "actor_type": "airplane",
+      "latitude": 33.8000,
+      "longitude": -117.5000,
+      "height": 0.0,
+      "config_file": "actors/vehicles/generic_aircraft.json"
+    },
+    {
+      "actor_id": "LA_vertipad",
+      "actor_type": "vertipad",
+      "latitude": 33.9144448,
+      "longitude": -118.387776,
+      "height": 0.0,
+      "config_file": "actors/vertipads/generic_vertipad.json"
+    },
+    {
+      "actor_id": "Catalina_vertipad",
+      "actor_type": "vertipad",
+      "latitude": 33.403543,
+      "longitude": -118.415775,
+      "height": 0.0,
+      "config_file": "actors/vertipads/generic_vertipad.json"
+    }
+  ],
+  "trajectories": [
+    {
+      "trajectory_id": "ego_trajectory",
+      "object_id": "ego",
+      "config_file": "trajectories/IntrudersInLACatalina/ego_trajectory.json"
+    },
+    {
+      "trajectory_id": "Intruder1_trajectory",
+      "object_id": "intruder1",
+      "config_file": "trajectories/IntrudersInLACatalina/Intruder1.json"
+    },
+    {
+      "trajectory_id": "Intruder2_trajectory",
+      "object_id": "intruder2",
+      "config_file": "trajectories/IntrudersInLACatalina/Intruder2.json"
+    }
+  ],
+  "sensor_setup": [
+    {
+      "sensor_name": "PMS_Front",
+      "vehicle": "ego",
+      "relative_transform": {
+        "translation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "config_file": "actors/sensors/fullhdcamera.json"
+    },
+    {
+      "sensor_name": "PMS_Rear",
+      "vehicle": "ego",
+      "relative_transform": {
+        "translation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "config_file": "actors/sensors/fullhdcamera.json"
+    }
+  ]
+}

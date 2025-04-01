@@ -1,0 +1,32 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../aerosim-app"
+		},
+		{
+			"path": "../aerosim-omniverse-kit-app"
+		},
+		{
+			"path": "../aerosim-omniverse-kit-app/source/extensions/aerosim.omniverse.extension"
+		},
+		{
+			"path": "../aerosim-unreal-project"
+		},
+		{
+			"path": "../aerosim-unreal-project/Plugins/aerosim-unreal-plugin"
+		},
+		{
+			"path": "../aerosim-assets"
+		},
+		{
+			"path": "../aerosim-unreal-project/Plugins/aerosim-assets-unreal"
+		},
+		{
+			"path": "../aerosim-simulink"
+		}
+	],
+	"settings": {}
+}

@@ -1,0 +1,8 @@
+{
+    "height_offset_map": "city_map",
+    "regions": [
+        { "name": "downtown", "offset": 15 },
+        { "name": "suburbs", "offset": 10 }
+    ]
+}
+  

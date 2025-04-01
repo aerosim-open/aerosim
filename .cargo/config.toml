@@ -1,0 +1,23 @@
+# Cargo configuration for AeroSim project
+# This file configures Rust compiler settings for better cross-platform compatibility
+
+[build]
+# Enable incremental compilation for faster builds during development
+incremental = true
+# Parallel compilation can speed up builds significantly
+jobs = 8
+
+# Linux-specific settings
+[target.x86_64-unknown-linux-gnu]
+# Use standard C compiler as linker
+linker = "cc"
+# When targeting Linux, ensure we build with appropriate flags
+rustflags = [
+    # Disable static CRT to avoid compatibility issues with Linux distros
+    "-C", "target-feature=-crt-static"
+]
+
+# Windows-specific settings
+[target.x86_64-pc-windows-msvc]
+# Windows-specific rustflags if needed
+rustflags = []

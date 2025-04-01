@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://jsbsim.sf.net/JSBSimScript.xsl"?>
+<runscript xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://jsbsim.sf.net/JSBSimScript.xsd"
+    name="C172r flight controller">
+
+  <description>
+    AeroSim example of a JSBSim script to load an independent flight controller model.
+    The end time is set to 1e9 seconds to allow the autopilot to run as long as the
+    AeroSim simulation needs to continue stepping it.
+  </description>
+
+  <use aircraft="c172r_flight_controller" initialize="ellington_aerosim"/>
+
+  <run start="0.0" end="1e9" dt="0.02">
+  </run>
+</runscript>

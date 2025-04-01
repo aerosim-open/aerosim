@@ -1,0 +1,287 @@
+{
+    "description": "Example of human pilot-in-the-loop simulation of flying an airplane with manual keyboard/joystick controls.",
+    "clock": {
+        "step_size_ms": 20,
+        "pace_1x_scale": true
+    },
+    "orchestrator": {
+        "sync_topics": [
+            {
+                "topic": "aerosim.actor1.aircraft_effector_command",
+                "interval_ms": 20
+            },
+            {
+                "topic": "aerosim.actor1.vehicle_state",
+                "interval_ms": 20
+            }
+        ],
+        "output_sim_data_file": "simdata_pilot_control_with_flight_deck.mcap"
+    },
+    "world": {
+        "update_interval_ms": 20,
+        "origin": {
+            "latitude": 29.594656,
+            "longitude": -95.16384722,
+            "altitude": -28.6
+        },
+        "weather":{
+            "preset": "Cloudy"
+        },
+        "actors": [
+            {
+                "actor_name": "actor1",
+                "actor_asset": "vehicles/generic_airplane/generic_airplane",
+                "parent": "",
+                "description": "Generic aircraft model",
+                "transform": {
+                    "position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "state": {
+                    "msg_type": "aerosim::types::VehicleState",
+                    "topic": "aerosim.actor1.vehicle_state"
+                },
+                "effectors": [
+                    {
+                        "id": "propeller_front",
+                        "relative_path": "generic_airplane/propeller",
+                        "transform": {
+                            "translation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ]
+                        },
+                        "state": {
+                            "msg_type": "aerosim::types::EffectorState",
+                            "topic": "aerosim.actor1.propeller.effector_state"
+                        }
+                    }
+                ],
+                "flight_deck": [
+                    {
+                        "id": "primary_flight_display",
+                        "state": {
+                            "msg_type": "aerosim::types::PrimaryFlightDisplayData",
+                            "topic": "aerosim.actor1.primary_flight_display_data"
+                        }
+                    }
+                ]
+            }
+        ],
+        "sensors": [
+            {
+                "sensor_name": "rgb_camera_pilot",
+                "type": "sensors/cameras/rgb_camera",
+                "parent": "actor1",
+                "transform": {
+                    "translation": [
+                        1.0,
+                        -0.2,
+                        -0.6
+                    ],
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "parameters": {
+                    "resolution": [
+                        1920,
+                        1080
+                    ],
+                    "tick_rate": 0.02,
+                    "frame_rate": 30,
+                    "fov": 90,
+                    "near_clip": 0.1,
+                    "far_clip": 1000.0,
+                    "capture_enabled": true
+                }
+            },
+            {
+                "sensor_name": "rgb_camera_chase",
+                "type": "sensors/cameras/rgb_camera",
+                "parent": "actor1",
+                "transform": {
+                    "translation": [
+                        -15.0,
+                        0.0,
+                        -2.0
+                    ],
+                    "rotation": [
+                        0.0,
+                        -5.0,
+                        0.0
+                    ]
+                },
+                "parameters": {
+                    "resolution": [
+                        800,
+                        600
+                    ],
+                    "tick_rate": 0.02,
+                    "frame_rate": 30,
+                    "fov": 90,
+                    "near_clip": 0.1,
+                    "far_clip": 1000.0,
+                    "capture_enabled": true
+                }
+            }
+        ]
+    },
+    "renderers": [
+        {
+            "renderer_id": "0",
+            "role": "primary",
+            "sensors": [
+                "rgb_camera_pilot"
+            ],
+            "viewport_config": {
+                "active_camera": "rgb_camera_pilot"
+            }
+        }
+    ],
+    "fmu_models": [
+        {
+            "id": "flight_controller",
+            "fmu_model_path": "examples/fmu/jsbsim_flight_controller_fmu_model.fmu",
+            "component_input_topics": [
+                {
+                    "msg_type": "aerosim::types::FlightControlCommand",
+                    "topic": "aerosim.actor1.flight_control_command"
+                }
+            ],
+            "component_output_topics": [
+                {
+                    "msg_type": "aerosim::types::AircraftEffectorCommand",
+                    "topic": "aerosim.actor1.aircraft_effector_command"
+                }
+            ],
+            "fmu_aux_input_mapping": {
+                "aerosim.actor1.jsbsim_flight_controller.aux_in": {}
+            },
+            "fmu_aux_output_mapping": {
+                "aerosim.actor1.jsbsim_flight_controller.aux_out": {}
+            },
+            "fmu_initial_vals": {
+                "jsbsim_root_dir": "examples/jsbsim_xml/",
+                "jsbsim_script": "scripts/c172r_flight_controller.xml"
+            }
+        },
+        {
+            "id": "dynamics_model",
+            "fmu_model_path": "examples/fmu/jsbsim_dynamics_fmu_model.fmu",
+            "component_input_topics": [
+                {
+                    "msg_type": "aerosim::types::AircraftEffectorCommand",
+                    "topic": "aerosim.actor1.aircraft_effector_command"
+                }
+            ],
+            "component_output_topics": [
+                {
+                    "msg_type": "aerosim::types::VehicleState",
+                    "topic": "aerosim.actor1.vehicle_state"
+                }
+            ],
+            "fmu_aux_input_mapping": {
+                "aerosim.actor1.jsbsim_dynamics_model.aux_in": {}
+            },
+            "fmu_aux_output_mapping": {
+                "aerosim.actor1.jsbsim_dynamics_model.aux_out": {
+                    "velocities/vc-kts": "velocities_vc_kts",
+                    "velocities/vtrue-kts": "velocities_vtrue_kts",
+                    "position/h-sl-ft": "position_h_sl_ft",
+                    "velocities/h-dot-fps": "velocities_h_dot_fps",
+                    "attitude/pitch-rad": "attitude_pitch_rad",
+                    "attitude/roll-rad": "attitude_roll_rad",
+                    "accelerations/vdot-ft_sec2": "accelerations_vdot_ft_sec2",
+                    "attitude/heading-true-rad": "attitude_heading_true_rad",
+                    "position/lat-geod-rad": "position_lat_geod_rad",
+                    "position/long-gc-rad": "position_long_gc_rad",
+                    "proprotor_rpm": "proprotor_rpm"
+                }
+            },
+            "fmu_initial_vals": {
+                "jsbsim_root_dir": "examples/jsbsim_xml/",
+                "jsbsim_script": "scripts/c172r_dynamics.xml"
+            }
+        },
+        {
+            "id": "primary_flight_display",
+            "fmu_model_path": "examples/fmu/primary_flight_display_controller_fmu_model.fmu",
+            "component_input_topics": [],
+            "component_output_topics": [
+                {
+                    "msg_type": "aerosim::types::PrimaryFlightDisplayData",
+                    "topic": "aerosim.actor1.primary_flight_display_data"
+                }
+            ],
+            "fmu_aux_input_mapping": {
+                "aerosim.actor1.jsbsim_dynamics_model.aux_out": {
+                    "velocities/vc-kts": "velocities_vc_kts",
+                    "velocities/vtrue-kts": "velocities_vtrue_kts",
+                    "position/h-sl-ft": "position_h_sl_ft",
+                    "velocities/h-dot-fps": "velocities_h_dot_fps",
+                    "attitude/pitch-rad": "attitude_pitch_rad",
+                    "attitude/roll-rad": "attitude_roll_rad",
+                    "accelerations/vdot-ft_sec2": "accelerations_vdot_ft_sec2",
+                    "attitude/heading-true-rad": "attitude_heading_true_rad",
+                    "position/lat-geod-rad": "position_lat_geod_rad",
+                    "position/long-gc-rad": "position_long_gc_rad"
+                }
+            },
+            "fmu_aux_output_mapping": {},
+            "fmu_initial_vals": {
+                "altimeter_pressure_setting_inhg": 29.92,
+                "hsi_mode": "gps"
+            }
+        },
+        {
+            "id": "propeller_effector",
+            "fmu_model_path": "fmu/rotor_effector_fmu_model.fmu",
+            "component_input_topics": [],
+            "component_output_topics": [
+                {
+                    "msg_type": "aerosim::types::EffectorState",
+                    "topic": "aerosim.actor1.propeller.effector_state"
+                }
+            ],
+            "fmu_aux_input_mapping": {
+                "aerosim.actor1.jsbsim_dynamics_model.aux_out": {
+                    "proprotor_rpm": "proprotor_rpm"
+                }
+            },
+            "fmu_aux_output_mapping": {},
+            "fmu_initial_vals": {
+                "effector_type": "proprotor",
+                "rotation_direction": 1.0,
+                "rotation_scale": 0.1,
+                "rotation_axis": "roll"
+            }
+        }
+    ]
+}

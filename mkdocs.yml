@@ -1,0 +1,26 @@
+site_name: AeroSim
+repo_url: https://github.com/aerosim-open/aerosim
+docs_dir: docs
+edit_uri: 'edit/master/docs/'
+theme: readthedocs
+  
+
+nav:
+- Home: 'index.md'
+- Overview: 'overview.md'
+- Getting started:
+  - 'Running a simulation': 'running_aerosim.md'
+- Tutorials:
+  - 'First steps': 'first_steps_tutorial.md'
+  - 'Takeoff tutorial': 'takeoff_tutorial.md'
+  - 'Autopilot tutorial': 'autopilot_tutorial.md'
+  - 'ADSB trajectories': 'adsb_trajectories_tutorial.md'
+- Resources:
+  - AeroSim app: 'aerosim_app.md'
+  - Conventions: 'conventions.md'
+  - Messages: 'messages.md'
+  - Simulation config: 'sim_config.md'
+  - FMU reference: 'fmu_reference.md'
+  - Scene graph: 'scene_graph_reference.md'
+  - SimReady asset creation: 'usd_asset_pipeline.md'
+  

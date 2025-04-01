@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<initialize name="ellington_aerosim" version="2">
+  <!--
+    This file sets up the aircraft to start off
+    from the runway in preparation for takeoff.
+  -->
+
+  <position frame="ECEF">
+    <altitudeAGL unit="FT"> 5.0 </altitudeAGL>
+    <latitude type="geodetic" unit="DEG"> 29.594656 </latitude>
+    <longitude unit="DEG"> -95.16384722 </longitude>
+  </position>
+
+  <elevation unit="FT"> 26.0 </elevation>
+
+  <orientation unit="DEG" frame="LOCAL">
+    <yaw> 0.0 </yaw>
+  </orientation>
+
+</initialize>

@@ -1,0 +1,21 @@
+{
+    "id": "vertiport",
+    "usd": "models/generic_vertipad.usd",
+    "description": "A generic vertiport with one vertipads",
+    "transform": {
+        "translation": [0.0, 0.0, 0.0],
+        "rotation": [0.0, 0.0, 0.0],
+        "scale": [1, 1, 1]
+    },
+    "pad_configuration": {
+        "total_pads": 1,
+        "default_pad_size": 20.0,
+        "default_pad_status": "free",
+        "relative_positions": [
+            [0.0, 0.0, 0.0]
+        ],
+        "relative_orientation": [
+            [0.0, 0.0, 0.0]
+        ]
+    }    
+}

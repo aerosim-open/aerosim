@@ -1,0 +1,29 @@
+[project]
+name = "aerosim-data"
+version = "0.1.0"
+description = "AeroSim Data Prototype"
+authors = [
+    { name = "Praveen Palanisamy", email = "praveen@aerosim.org" }
+]
+dependencies = [
+    # "maturin[patchelf]>=1.7.4",
+    "maturin>=1.7.4",
+    "pip>=24.2",
+]
+readme = "README.md"
+requires-python = ">= 3.12"
+
+[build-system]
+requires = ["maturin>=1.2,<2.0"]
+build-backend = "maturin"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "pytest>=8.3.3",
+]
+
+[tool.maturin]
+python-source = "python"
+module-name = "aerosim_data._aerosim_data"
+features = ["pyo3/extension-module"]

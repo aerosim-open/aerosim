@@ -1,0 +1,189 @@
+{
+    "description": "Simple autopilot tutorial.",
+    "clock": {
+        "step_size_ms": 20,
+        "pace_1x_scale": true
+    },
+    "orchestrator": {
+        "sync_topics": [
+            {
+                "topic": "aerosim.actor1.vehicle_state",
+                "interval_ms": 20
+            }
+        ]
+    },
+    "world": {
+        "update_interval_ms": 20,
+        "origin": {
+            "latitude": 41.293222,
+            "longitude": 2.067261,
+            "altitude": 51
+        },
+        "weather": {
+            "preset": "Cloudy"
+        },
+        "actors": [
+            {
+                "actor_name": "actor1",
+                "actor_asset": "vehicles/generic_airplane/generic_airplane",
+                "parent": "",
+                "description": "Generic aircraft model",
+                "transform": {
+                    "position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        66.5
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "state": {
+                    "msg_type": "aerosim::types::VehicleState",
+                    "topic": "aerosim.actor1.vehicle_state"
+                },
+                "effectors": [
+                    {
+                        "id": "propeller_front",
+                        "relative_path": "generic_airplane/propeller",
+                        "transform": {
+                            "translation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ]
+                        },
+                        "state": {
+                            "msg_type": "aerosim::types::EffectorState",
+                            "topic": "aerosim.actor1.propeller.effector_state"
+                        }
+                    }
+                ]
+            }
+        ],
+        "sensors": [
+            {
+                "sensor_name": "rgb_camera_0",
+                "type": "sensors/cameras/rgb_camera",
+                "parent": "actor1",
+                "transform": {
+                    "translation": [
+                        -20.0,
+                        0.0,
+                        -5.0
+                    ],
+                    "rotation": [
+                        0.0,
+                        -10.0,
+                        0.0
+                    ]
+                },
+                "parameters": {
+                    "resolution": [
+                        1920,
+                        1080
+                    ],
+                    "tick_rate": 0.02,
+                    "frame_rate": 30,
+                    "fov": 90,
+                    "near_clip": 0.1,
+                    "far_clip": 1000.0,
+                    "capture_enabled": false
+                }
+            }
+        ]
+    },
+    "renderers": [
+        {
+            "renderer_id": "0",
+            "role": "primary",
+            "sensors": [
+                "rgb_camera_0"
+            ],
+            "viewport_config": {
+                "active_camera": "rgb_camera_0"
+            }
+        }
+    ],
+    "fmu_models": [
+        {
+            "id": "dynamics_fmu",
+            "fmu_model_path": "fmu/dynamics_fmu.fmu",
+            "component_input_topics": [
+                {
+                    "msg_type": "aerosim::types::FlightControlCommand",
+                    "topic": "aerosim.actor1.flight_control_command"
+                }
+            ],
+            "component_output_topics": [
+                {
+                    "msg_type": "aerosim::types::VehicleState",
+                    "topic": "aerosim.actor1.vehicle_state"
+                }
+            ],
+            "fmu_aux_input_mapping": {},
+            "fmu_aux_output_mapping": {
+                "aerosim.actor1.dynamics.aux_out": {
+                    "vcal_knts": "vcal_knts",
+                    "agl_ft": "agl_ft",
+                    "roll_rad": "roll_rad",
+                    "pitch_rad": "pitch_rad",
+                    "psi_rad": "psi_rad",
+                    "lat": "lat",
+                    "lon": "lon"
+                }
+            },
+            "fmu_initial_vals": {
+                "orig_lat": 41.293222,
+                "orig_lon": 2.067261,
+                "init_heading": 67
+            }
+        },
+        {
+            "id": "autopilot_fmu",
+            "fmu_model_path": "fmu/autopilot_fmu.fmu",
+            "component_input_topics": [],
+            "component_output_topics": [
+                {
+                    "msg_type": "aerosim::types::FlightControlCommand",
+                    "topic": "aerosim.actor1.flight_control_command"
+                }
+            ],
+            "fmu_aux_input_mapping": {
+                "aerosim.actor1.dynamics.aux_out": {
+                    "vcal_knts": "vcal_knts",
+                    "agl_ft": "agl_ft",
+                    "roll_rad": "roll_rad",
+                    "pitch_rad": "pitch_rad",
+                    "psi_rad": "psi_rad",
+                    "lat": "lat",
+                    "lon": "lon"
+                }
+            },
+            "fmu_aux_output_mapping": {},
+            "fmu_initial_vals": {
+                "waypoints_dir": "waypoints",
+                "waypoints_file": "bcn_airport.json",
+                "target_altitude": 150,
+                "target_speed": 80
+            }
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "id": "helicopter",
+    "usd": "models/generic_helicopter.usd",
+    "description": "Generic helicopter model",
+    "transform": {
+      "translation": [0.0, 0.0, 0.0],
+      "rotation": [0.0, 0.0, 0.0, 0.0],
+      "scale": [1.0, 1.0, 1.0]
+    },
+    "state": "playing animation"
+}
+  

@@ -1,0 +1,28 @@
+[package]
+name = "aerosim_world_link"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+aerosim-core = { path = "../aerosim-core" }
+aerosim-data = { path = "../aerosim-data", features = ["kafka"] }
+rdkafka = { version = "0.35.0", features = ["cmake_build"] }
+tokio = { version = "1", features = ["full"] }
+lazy_static = "1.5.0"
+log = "0.4.22"
+log4rs = "1.2"
+serde_json = "1.0.132"
+serde = { version = "1.0.214", features = ["derive"] }
+uuid = { version = "1.12.0", features = ["serde", "v4"] }
+futures = "0.3.31"
+
+[build-dependencies]
+cbindgen = "0.27.0"
+
+[lib]
+name = "aerosim_world_link"
+path = "src/lib.rs"
+crate-type = ["cdylib"]
+
+[workspace]
+# Build this in its own workspace

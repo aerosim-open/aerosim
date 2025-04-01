@@ -1,0 +1,13 @@
+#include "aerosim_data/msg/Header.idl" //Include header in compressed image
+
+module aerosim_data {
+  module msg { // Add 'msg' submodule for ROS2 compatibility
+    struct CompressedImage {
+        aerosim_data/msg/Header header; // Add header with TimeStamp
+        uint32 height;
+        uint32 width;
+        string format;
+        sequence<uint8> data;
+    };
+  };
+};

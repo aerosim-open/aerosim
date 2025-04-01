@@ -1,0 +1,15 @@
+{
+  "sensor": {
+    "id": "lidar_top",
+    "type": "Lidar",
+    "relative_transform": {
+      "translation": [0, 0, 2],
+      "rotation": [0, 0, 0]
+    },
+    "parameters": {
+      "range": 100,
+      "field_of_view": 360,
+      "rotation_rate": 10
+    }
+  }
+}

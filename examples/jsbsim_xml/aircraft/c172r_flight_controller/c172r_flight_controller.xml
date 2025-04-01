@@ -1,0 +1,211 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="http://jsbsim.sourceforge.net/JSBSim.xsl"?>
+<fdm_config name="c172" version="2.0" release="BETA"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://jsbsim.sourceforge.net/JSBSim.xsd">
+
+    <fileheader>
+        <author> Unknown </author>
+        <filecreationdate> 2002-01-01 </filecreationdate>
+        <version> $Id: c172r.xml,v 1.20 2012/12/22 15:22:20 jberndt Exp $ </version>
+        <description>
+            AeroSim example of modeling a Cessna C-172r flight controller. This is
+            based on JSBSim's c172r.xml model, but is only used for executing the
+            `flight_control` section's logic. The airplane's physical parameters are
+            set to a minimal set of dummy values, and all state variable parameters
+            needed as inputs to the flight controller are remapped to external
+            parameter names so that no internal state of this JSBSim instance's
+            dynamics model are used.
+        </description>
+      <note>
+        This model was created using publicly available data, publicly available
+        technical reports, textbooks, and guesses. It contains no proprietary or
+        restricted data. If this model has been validated at all, it would be
+        only to the extent that it seems to "fly right", and that it possibly
+        complies with published, publicly known, performance data (maximum speed,
+        endurance, etc.). Thus, this model is meant for educational and entertainment
+        purposes only.
+
+        This simulation model is not endorsed by the manufacturer. This model is not
+        to be sold.
+      </note>
+    </fileheader>
+
+    <metrics></metrics>
+
+    <mass_balance>
+        <emptywt unit="LBS"> 1 </emptywt>
+    </mass_balance>
+
+    <ground_reactions></ground_reactions>
+
+    <aerodynamics>
+        <axis name="DRAG"></axis>
+        <axis name="SIDE"></axis>
+        <axis name="LIFT"></axis>
+        <axis name="ROLL"></axis>
+        <axis name="PITCH"></axis>
+        <axis name="YAW"></axis>
+    </aerodynamics>
+
+    <flight_control name="FCS: c172">
+        <channel name="Pitch">
+            <summer name="Pitch Trim Sum">
+                <input>fcs/elevator-cmd-norm</input>
+                <input>fcs/pitch-trim-cmd-norm</input>
+                <clipto>
+                    <min>-1</min>
+                    <max>1</max>
+                </clipto>
+            </summer>
+
+            <aerosurface_scale name="Elevator Control">
+                <input>fcs/pitch-trim-sum</input>
+                <gain>0.01745</gain>
+                <range>
+                    <min>-28</min>
+                    <max>23</max>
+                </range>
+                <output>fcs/elevator-pos-rad</output>
+            </aerosurface_scale>
+
+            <aerosurface_scale name="Elevator Position Normalized">
+                <input>fcs/elevator-pos-deg</input>
+                <domain>
+  	            <min>-28</min>
+  	            <max>23</max>
+                </domain>
+                <range>
+                    <min>-1</min>
+                    <max>1</max>
+                </range>
+                <output>fcs/elevator-pos-norm</output>
+            </aerosurface_scale>
+        </channel>
+        <channel name="Roll">
+            <summer name="Roll Trim Sum">
+                <input>fcs/aileron-cmd-norm</input>
+                <input>fcs/roll-trim-cmd-norm</input>
+                <clipto>
+                    <min>-1</min>
+                    <max>1</max>
+                </clipto>
+            </summer>
+
+            <aerosurface_scale name="Left Aileron Control">
+                <input>fcs/roll-trim-sum</input>
+                <gain>0.01745</gain>
+                <range>
+                    <min>-20</min>
+                    <max>15</max>
+                </range>
+                <output>fcs/left-aileron-pos-rad</output>
+            </aerosurface_scale>
+
+            <aerosurface_scale name="Left Aileron Position Normalized">
+                <input>fcs/left-aileron-pos-deg</input>
+                <domain>
+  	            <min>-20</min>
+  	            <max>15</max>
+                </domain>
+                <range>
+                    <min>-1</min>
+                    <max>1</max>
+                </range>
+                <output>fcs/left-aileron-pos-norm</output>
+            </aerosurface_scale>
+
+            <aerosurface_scale name="Right Aileron Control">
+                <input>fcs/roll-trim-sum</input>
+                <gain>-0.01745</gain>
+                <range>
+                    <min>-20</min>
+                    <max>15</max>
+                </range>
+                <output>fcs/right-aileron-pos-rad</output>
+            </aerosurface_scale>
+
+            <aerosurface_scale name="Right Aileron Position Normalized">
+                <input>fcs/right-aileron-pos-deg</input>
+                <domain>
+  	            <min>-15</min>
+  	            <max>20</max>
+                </domain>
+                <range>
+                    <min>1</min>
+                    <max>-1</max>
+                </range>
+                <output>fcs/right-aileron-pos-norm</output>
+            </aerosurface_scale>
+        </channel>
+        <channel name="Yaw">
+            <summer name="Yaw Trim Sum">
+                <input>fcs/rudder-cmd-norm</input>
+                <input>fcs/yaw-trim-cmd-norm</input>
+                <clipto>
+                    <min>-1</min>
+                    <max>1</max>
+                </clipto>
+            </summer>
+
+            <aerosurface_scale name="Rudder Control">
+                <input>fcs/yaw-trim-sum</input>
+                <gain>0.01745</gain>
+                <range>
+                    <min>-16</min>
+                    <max>16</max>
+                </range>
+                <output>fcs/rudder-pos-rad</output>
+            </aerosurface_scale>
+
+            <aerosurface_scale name="Rudder Position Normalized">
+                <input>fcs/rudder-pos-deg</input>
+                <domain>
+  	            <min>-16</min>
+  	            <max>16</max>
+                </domain>
+                <range>
+                    <min>-1</min>
+                    <max>1</max>
+                </range>
+                <output>fcs/rudder-pos-norm</output>
+            </aerosurface_scale>
+        </channel>
+        <channel name="Flaps">
+            <kinematic name="Flaps Control">
+                <input>fcs/flap-cmd-norm</input>
+                <traverse>
+                    <setting>
+                        <position>0</position>
+                        <time>0</time>
+                    </setting>
+                    <setting>
+                        <position>10</position>
+                        <time>2</time>
+                    </setting>
+                    <setting>
+                        <position>20</position>
+                        <time>1</time>
+                    </setting>
+                    <setting>
+                        <position>30</position>
+                        <time>1</time>
+                    </setting>
+                </traverse>
+                <output>fcs/flap-pos-deg</output>
+            </kinematic>
+            <aerosurface_scale name="Flap Position Normalizer">
+              <input>fcs/flap-pos-deg</input>
+              <domain>
+                <min>0</min>  <!-- Flaps actual minimum position -->
+                <max>30</max>  <!-- Flaps actual maximum position -->
+              </domain>
+              <range>
+                <min>0</min>  <!-- Flaps normalized minimum position -->
+                <max>1</max>  <!-- Flaps normalized maximum position -->
+              </range>
+              <output>fcs/flap-pos-norm</output>
+            </aerosurface_scale>
+        </channel>
+    </flight_control>
+</fdm_config>

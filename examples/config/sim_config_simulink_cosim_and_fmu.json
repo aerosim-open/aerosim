@@ -1,0 +1,222 @@
+{
+    "description": "Simulink co-simulation controller model with a simple 1DOF dynamics model FMU that was exported from another Simulink model.",
+    "clock": {
+        "step_size_ms": 20,
+        "pace_1x_scale": true
+    },
+    "orchestrator": {
+        "sync_topics": [
+            {
+                "topic": "aerosim.simulink_out",
+                "interval_ms": 20
+            },
+            {
+                "topic": "aerosim.actor1.vehicle_state",
+                "interval_ms": 20
+            }
+        ]
+    },
+    "world": {
+        "update_interval_ms": 20,
+        "origin": {
+            "latitude": 33.936519,
+            "longitude": -118.412698,
+            "altitude": 2.24
+        },
+        "weather":{
+            "preset": "Cloudy"
+        },
+        "actors": [
+            {
+                "actor_name": "actor1",
+                "actor_asset": "vehicles/generic_helicopter/generic_helicopter",
+                "parent": "",
+                "description": "Generic helicopter model",
+                "transform": {
+                    "position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "state": {
+                    "msg_type": "aerosim::types::VehicleState",
+                    "topic": "aerosim.actor1.vehicle_state"
+                },
+                "effectors": [
+                    {
+                        "id": "main_rotor",
+                        "relative_path": "generic_helicopter/rotor_main",
+                        "transform": {
+                            "translation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ]
+                        },
+                        "state": {
+                            "msg_type": "aerosim::types::EffectorState",
+                            "topic": "aerosim.actor1.main_rotor.effector_state"
+                        }
+                    },
+                    {
+                        "id": "tail_rotor",
+                        "relative_path": "generic_helicopter/rotor_tail",
+                        "transform": {
+                            "translation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ]
+                        },
+                        "state": {
+                            "msg_type": "aerosim::types::EffectorState",
+                            "topic": "aerosim.actor1.tail_rotor.effector_state"
+                        }
+                    }
+                ]
+            }
+        ],
+        "sensors": [
+            {
+                "sensor_name": "rgb_camera_0",
+                "type": "sensors/cameras/rgb_camera",
+                "parent": "actor1",
+                "transform": {
+                    "translation": [
+                        17.0,
+                        -13.0,
+                        -5.0
+                    ],
+                    "rotation": [
+                        0.0,
+                        -10.0,
+                        140.0
+                    ]
+                },
+                "parameters": {
+                    "resolution": [
+                        800,
+                        600
+                    ],
+                    "tick_rate": 0.02,
+                    "frame_rate": 30,
+                    "fov": 90,
+                    "near_clip": 0.1,
+                    "far_clip": 1000.0,
+                    "capture_enabled": true
+                }
+            }
+        ]
+    },
+    "renderers": [
+        {
+            "renderer_id": "0",
+            "role": "primary",
+            "sensors": [
+                "rgb_camera_0"
+            ],
+            "viewport_config": {
+                "active_camera": "rgb_camera_0"
+            }
+        }
+    ],
+    "fmu_models": [
+        {
+            "id": "1DOF_dynamics",
+            "fmu_model_path": "examples/fmu/aerosim_simulink_fmu_1DOF_dynamics.fmu",
+            "component_input_topics": [],
+            "component_output_topics": [
+                {
+                    "msg_type": "aerosim::types::VehicleState",
+                    "topic": "aerosim.actor1.vehicle_state"
+                }
+            ],
+            "fmu_aux_input_mapping": {
+                "aerosim.simulink_out": {
+                    "control_signal_1": "fz"
+                }
+            },
+            "fmu_initial_vals": {
+                "Cd": 0.3,
+                "A": 1.0
+            }
+        },
+        {
+            "id": "main_rotor_effector",
+            "fmu_model_path": "fmu/rotor_effector_fmu_model.fmu",
+            "component_input_topics": [],
+            "component_output_topics": [
+                {
+                    "msg_type": "aerosim::types::EffectorState",
+                    "topic": "aerosim.actor1.main_rotor.effector_state"
+                }
+            ],
+            "fmu_aux_input_mapping": {
+                "aerosim.simulink_out": {
+                    "main_rotor_rpm": "proprotor_rpm"
+                }
+            },
+            "fmu_aux_output_mapping": {},
+            "fmu_initial_vals": {
+                "effector_type": "proprotor",
+                "rotation_direction": 1.0,
+                "rotation_offset_deg": 0.0,
+                "rotation_axis": "yaw"
+            }
+        },
+        {
+            "id": "tail_rotor_effector",
+            "fmu_model_path": "fmu/rotor_effector_fmu_model.fmu",
+            "component_input_topics": [],
+            "component_output_topics": [
+                {
+                    "msg_type": "aerosim::types::EffectorState",
+                    "topic": "aerosim.actor1.tail_rotor.effector_state"
+                }
+            ],
+            "fmu_aux_input_mapping": {
+                "aerosim.simulink_out": {
+                    "tail_rotor_rpm": "proprotor_rpm"
+                }
+            },
+            "fmu_aux_output_mapping": {},
+            "fmu_initial_vals": {
+                "effector_type": "proprotor",
+                "rotation_direction": 1.0,
+                "rotation_offset_deg": 0.0,
+                "rotation_axis": "pitch"
+            }
+        }
+    ]
+}

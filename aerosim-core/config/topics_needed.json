@@ -1,0 +1,21 @@
+[
+    "aerosim.clock",
+    "aerosim.simulink_out",
+    "aerosim.fmu_block1.pose",
+    "aerosim.actor1.jsbsim_dynamics",
+    "aerosim.actor1.flight_control_command",
+    "aerosim.actor1.aircraft_effector_command",
+    "aerosim.actor1.vehicle_state",
+    "aerosim.ego.vehicle_state",
+    "aerosim.ego.jsbsim_dynamics",
+    "aerosim.ego.flight_control_command",
+    "aerosim.ego.aircraft_effector_command",
+    "aerosim.intruder1.vehicle_state",
+    "aerosim.intruder1.jsbsim_dynamics",
+    "aerosim.intruder1.flight_control_command",
+    "aerosim.intruder1.aircraft_effector_command",
+    "aerosim.intruder2.vehicle_state",
+    "aerosim.intruder2.jsbsim_dynamics",
+    "aerosim.intruder2.flight_control_command",
+    "aerosim.intruder2.aircraft_effector_command"
+]

@@ -1,0 +1,49 @@
+# python generated files
+**/__pycache__/
+*.py[ocd]
+build/
+dist/
+wheels/
+*.egg-info
+
+# venv
+.venv
+
+*.so
+
+logs
+*.log
+
+# Simulink outputs
+slprj
+*.slxc
+*.autosave
+*.pdb
+
+# Build system generated files
+renderer_config.ini
+networking_mode.txt
+kafka/kafka_logs.txt
+
+# Test keys
+.github/test-keys
+
+# Cargo build folder
+**/target
+
+#Scripts generated files
+**/scenarios_generated/*
+**/scenarios_generated_*
+
+# Working folder for FMU extraction
+**/temp_fmu_extract
+
+# Output MCAP sim data files
+*.mcap
+
+# Aerosim modules
+aerosim-app
+aerosim-assets
+aerosim-omniverse-kit-app
+aerosim-simulink
+aerosim-unreal-project

@@ -1,0 +1,16 @@
+{
+    "sensor": {
+      "id": "camera_front",
+      "type": "Rgbcamera",
+      "relative_transform": {
+        "translation": [0, 1, 0],
+        "rotation": [0, 0, 0]
+      },
+      "RGBCameraParameters": {
+        "resolution": [1920, 1080],
+        "frame_rate": 30,
+        "field_of_view": 90
+      }
+    }
+}
+  

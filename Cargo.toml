@@ -1,0 +1,30 @@
+[workspace]
+
+resolver = "2"
+members = [
+    "aerosim-controllers",
+    "aerosim-core",
+    "aerosim-data",
+    "aerosim-dynamics-models",
+    "aerosim-scenarios",
+    "aerosim-sensors",
+    "aerosim-world"
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["AeroSim Team"]
+description = "AeroSim Rust components"
+
+[workspace.dependencies]
+pyo3 = { version = "0.23.3", features = ["abi3-py39", "extension-module"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0.132"
+chrono = "0.4.39"
+log = "0.4.25"
+
+[workspace.metadata.maturin]
+python-source = "."
+module-name = "aerosim"
+bindings = "pyo3"

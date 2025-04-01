@@ -1,0 +1,26 @@
+{
+    "type": "object",
+    "description": "Configuration for RGB Camera sensors",
+    "properties": {
+      "resolution": {
+        "type": "array",
+        "description": "Resolution of the camera [width, height]",
+        "items": {
+          "type": "integer"
+        },
+        "minItems": 2,
+        "maxItems": 2
+      },
+      "frame_rate": {
+        "type": "number",
+        "description": "Frame rate of the camera in FPS"
+      },
+      "field_of_view": {
+        "type": "number",
+        "description": "Field of view of the camera in degrees"
+      }
+    },
+    "required": ["resolution", "frame_rate", "field_of_view"],
+    "additionalProperties": false
+}
+  

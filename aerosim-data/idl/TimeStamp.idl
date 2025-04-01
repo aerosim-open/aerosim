@@ -1,0 +1,8 @@
+module aerosim_data {
+    module msg {
+        struct TimeStamp {
+            uint32 sec;
+            uint32 nanosec;
+        };
+    };
+};

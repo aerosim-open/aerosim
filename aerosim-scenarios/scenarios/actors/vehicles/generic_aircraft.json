@@ -1,0 +1,11 @@
+{
+    "id": "airplane",
+    "usd": "models/generic_aircraft.usd",
+    "description": "Generic aircraft model",
+    "transform": {
+        "translation": [0.0, 0.0, 0.0],
+        "rotation": [0.0, 0.0, 0.0],
+        "scale": [1.0, 1.0, 1.0]
+    },
+    "state": "static"
+}

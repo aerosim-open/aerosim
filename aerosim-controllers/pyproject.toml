@@ -1,0 +1,27 @@
+[project]
+name = "aerosim-controllers"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "Effendi Dufford", email = "effendi@aerosim.org" }
+]
+dependencies = [
+    "pythonfmu3>=0.1.15",
+    "numpy>=2.1.3",
+    "jsbsim>=1.2.1",
+]
+readme = "README.md"
+requires-python = "~= 3.12"  # pythonfmu3 is currently built with Python 3.12 and links to it on Linux
+
+[build-system]
+requires = ["maturin>=1.2,<2.0"]
+build-backend = "maturin"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.maturin]
+python-source = "python"
+module-name = "aerosim_controllers._aerosim_controllers"
+features = ["pyo3/extension-module"]

@@ -1,0 +1,87 @@
+{
+  "scenario_id": "scenario_001",
+  "description": "Updated description",
+  "time_of_day": "morning",
+  "weather": [
+    {
+      "weather_id": "clear_skies",
+      "config_file": "configs/weather/clear.json"
+    },
+    {
+      "weather_id": "light_rain",
+      "config_file": "configs/weather/light_rain.json"
+    }
+  ],
+  "cesium_height_offset_map": "configs/height_offsets/city_map.json",
+  "actors": [
+    {
+      "actor_id": "drone_001",
+      "latitude": 34.0522,
+      "longitude": -118.2437,
+      "height": 100.0,
+      "config_file": "configs/actors/drone_001.json",
+      "id": "drone_001",
+      "usd": "models/drones/drone_001.usd",
+      "transform": null,
+      "state": "active"
+    },
+    {
+      "actor_id": "car_001",
+      "latitude": 34.0522,
+      "longitude": -118.2437,
+      "height": 0.0,
+      "config_file": "configs/actors/car_001.json",
+      "id": "car_001",
+      "usd": "models/cars/car_001.usd",
+      "transform": null,
+      "state": "idle"
+    }
+  ],
+  "trajectories": [
+    {
+      "trajectory_id": "trajectory_001",
+      "object_id": "drone_001",
+      "config_file": "trajectories/drone_001_path.json",
+      "trajectory": [
+        {
+          "timestamp": 0.0,
+          "latitude": 37.7749,
+          "longitude": -122.4194,
+          "height": 50.0
+        },
+        {
+          "timestamp": 10.0,
+          "latitude": 37.775,
+          "longitude": -122.418,
+          "height": 100.0
+        },
+        {
+          "timestamp": 20.0,
+          "latitude": 37.776,
+          "longitude": -122.417,
+          "height": 150.0
+        }
+      ]
+    }
+  ],
+  "sensor_setup": [
+    {
+      "sensor_name": "lidar_top",
+      "vehicle": "drone_001",
+      "config_file": "configs/sensors/lidar_top.json",
+      "id": null,
+      "sensor_type": null,
+      "relative_transform": null,
+      "parameters": null
+    },
+    {
+      "sensor_name": "camera_front",
+      "vehicle": "drone_001",
+      "config_file": "configs/sensors/camera_front.json",
+      "id": null,
+      "sensor_type": null,
+      "relative_transform": null,
+      "parameters": null
+    }
+  ]
+}

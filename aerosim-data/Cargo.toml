@@ -1,0 +1,68 @@
+[package]
+name = "aerosim-data"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+name = "aerosim_data"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+pyo3 = { version="0.23.3", features= ["abi3-py39", "extension-module"]}
+serde = { version = "1.0", features = ["derive"] }
+serde_repr = "0.1.20"
+serde_json = "1.0"
+async-trait = "0.1"
+chrono = "0.4.38"
+strum = { version = "0.26.3", features = ["derive"] }
+strum_macros = "0.26.4"
+enum_dispatch = "0.3.13"
+ctor = "0.2.8"
+pythonize = "0.23.0"
+aerosim-macros = { path = "../aerosim-macros" }
+futures = "0.3.31"
+schemars = "0.8.22"
+serde_bytes="0.11.16"
+bincode = "1.3"
+turbojpeg = { version = "1.3.0", default-features = false, features = ["cmake"] }
+
+[features]
+default = ["kafka"]
+middleware = ["r2r", "dds", "kafka"]
+
+dds = ["cyclors", "cdr"]
+kafka = ["rdkafka", "futures-util", "tokio"]
+
+[dependencies.r2r]
+version = "0.9.1"
+optional = true
+
+[dependencies.cyclors]
+version = "0.3.3"
+optional = true
+
+[dependencies.cdr]
+version = "0.2.4"
+optional = true
+
+[dependencies.rdkafka]
+version = "0.35.0"
+features = ["cmake-build"]
+optional = true
+
+[dependencies.futures-util]
+version = "0.3"
+optional = true
+
+[dependencies.tokio]
+version = "1.0"
+features = ["full"]
+optional = true
+
+[dev-dependencies]
+tokio = { version = "1.0", features = ["full"] }
+
+
+# To enable the "middleware" feature, use the following command:
+# cargo build --features "middleware"

@@ -1,0 +1,35 @@
+{
+    "trajectory": [
+      {
+        "timestamp": 0.0,
+        "latitude": 33.3000,
+        "longitude": -118.8000,
+        "height": 500.0
+      },
+      {
+        "timestamp": 180.0,
+        "latitude": 33.4000,
+        "longitude": -118.6000,
+        "height": 1000.0
+      },
+      {
+        "timestamp": 300.0,
+        "latitude": 33.4400,
+        "longitude": -118.4000,
+        "height": 2000.0
+      },
+      {
+        "timestamp": 420.0,
+        "latitude": 33.5500,
+        "longitude": -118.2000,
+        "height": 2500.0
+      },
+      {
+        "timestamp": 540.0,
+        "latitude": 33.7000,
+        "longitude": -118.0500,
+        "height": 3000.0
+      }
+    ]
+}
+  

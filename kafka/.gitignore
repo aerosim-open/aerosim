@@ -1,0 +1,9 @@
+# Kafka files
+bin/
+config/
+libs/
+licenses/
+logs/
+site-docs/
+LICENSE
+NOTICE

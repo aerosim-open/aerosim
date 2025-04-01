@@ -1,0 +1,63 @@
+# Version control
+.git
+.gitignore
+.github
+
+# Build artifacts
+**/target/
+**/__pycache__/
+**/*.py[cod]
+**/*$py.class
+**/*.so
+**/*.dylib
+**/*.dll
+**/*.pyd
+**/*.egg-info/
+**/.eggs/
+**/.pytest_cache/
+**/dist/
+**/build/
+**/*.egg
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Debug files
+*.log
+*.prof
+
+# Documentation
+docs/
+*.md
+
+# Test data that isn't needed for builds
+**/test_data/
+**/tests/data/
+
+# Unnecessary for container builds
+**/.coverage
+**/htmlcov/
+**/coverage.xml
+
+# Jupyter notebook checkpoints
+**/.ipynb_checkpoints/
+
+# Do not ignore necessary build files
+!.cargo/
+!Cargo.toml
+!Cargo.lock
+!pyproject.toml
+!requirements.txt
+!rye.toml
+!.python-version

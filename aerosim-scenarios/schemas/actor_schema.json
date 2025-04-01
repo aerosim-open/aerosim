@@ -1,0 +1,73 @@
+{
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the actor"
+      },
+      "usd": {
+        "type": "string",
+        "description": "Path to the USD file",
+        "format": "uri"
+      },
+      "description": { 
+        "type": "string",
+        "description": "Description of the actor"
+      },
+      "transform": {
+        "type": "object",
+        "description": "Optional transform for the actor",
+        "properties": {
+          "translation": {
+            "type": "array",
+            "description": "Translation as [x, y, z]",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "rotation": {
+            "description": "Rotation can be defined as Euler angles or quaternions",
+            "oneOf": [
+              {
+                "type": "array",
+                "description": "Euler angles [roll, pitch, yaw] in degrees",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              {
+                "type": "array",
+                "description": "Quaternion [x, y, z, w] (unit quaternion)",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 4,
+                "maxItems": 4
+              }
+            ]
+          },
+          "scale": {
+            "type": "array",
+            "description": "Scale as [x, y, z]",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 3,
+            "maxItems": 3
+          }
+        },
+        "required": ["translation", "rotation", "scale"],
+        "additionalProperties": false
+      },
+      "state": {
+        "type": "string",
+        "description": "Possible state of the actor, such as lights on, lights off, static, playing animation"
+      }
+    },
+    "required": ["id", "usd"]
+}
+  

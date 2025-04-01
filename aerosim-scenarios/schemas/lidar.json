@@ -1,0 +1,25 @@
+{
+    "type": "object",
+    "description": "Configuration for LIDAR sensors",
+    "properties": {
+      "range": {
+        "type": "number",
+        "description": "Maximum range of the LIDAR in meters"
+      },
+      "field_of_view": {
+        "type": "number",
+        "description": "Field of view of the LIDAR in degrees"
+      },
+      "rotation_rate": {
+        "type": "number",
+        "description": "Rotation rate of the LIDAR in Hz"
+      },
+      "point_density": {
+        "type": "number",
+        "description": "Density of points per second in millions"
+      }
+    },
+    "required": ["range", "field_of_view", "rotation_rate", "point_density"],
+    "additionalProperties": false
+}
+  

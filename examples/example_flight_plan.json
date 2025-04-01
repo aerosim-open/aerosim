@@ -1,0 +1,86 @@
+[
+    {
+        "step": 0,
+        "command": "takeoff",
+        "takeoff_speed_kts": 59.0,
+        "target_altitude_ft": 500.0,
+        "throttle": 1.0,
+        "heading_deg": 0,
+        "completion_criteria": ["altitude_ft", ">=", 500.0]
+    },
+    {
+        "step": 1,
+        "command": "go_to_waypoint",
+        "waypoint": {
+            "latitude_deg": 29.635359,
+            "longitude_deg": -95.199791,
+            "altitude_ft": 500.0
+        },
+        "completion_criteria": ["distance_ft", "<", 500.0]
+    },
+    {
+        "step": 2,
+        "command": "go_to_waypoint",
+        "waypoint": {
+            "latitude_deg": 29.600929,
+            "longitude_deg": -95.228769,
+            "altitude_ft": 500.0
+        },
+        "completion_criteria": [ "distance_ft", "<", 500.0]
+    },
+    {
+        "step": 3,
+        "command": "go_to_waypoint",
+        "waypoint": {
+            "latitude_deg": 29.544231,
+            "longitude_deg": -95.225429,
+            "altitude_ft": 500.0
+        },
+        "completion_criteria": [ "distance_ft", "<", 500.0]
+    },
+    {
+        "step": 4,
+        "command": "go_to_waypoint",
+        "waypoint": {
+            "latitude_deg": 29.519577,
+            "longitude_deg": -95.190603,
+            "altitude_ft": 500.0
+        },
+        "completion_criteria": [ "distance_ft", "<", 500.0]
+    },
+    {
+        "step": 5,
+        "command": "go_to_waypoint",
+        "waypoint": {
+            "latitude_deg": 29.562957,
+            "longitude_deg": -95.163101,
+            "altitude_ft": 500.0
+        },
+        "completion_criteria": [ "distance_ft", "<", 500.0]
+    },
+    {
+        "step": 6,
+        "command": "go_to_waypoint",
+        "waypoint": {
+            "latitude_deg": 29.586582,
+            "longitude_deg": -95.163723,
+            "altitude_ft": 500.0
+        },
+        "completion_criteria": [ "distance_ft", "<", 500.0]
+    },
+    {
+        "step": 7,
+        "command": "go_to_waypoint",
+        "waypoint": {
+            "latitude_deg": 29.593841,
+            "longitude_deg": -95.164057,
+            "altitude_ft": 200.0
+        },
+        "completion_criteria": [ "distance_ft", "<", 500.0]
+    },
+    {
+        "step": 8,
+        "command": "land",
+        "completion_criteria": ["altitude_ft", "<=", 30.0]
+    }
+]
