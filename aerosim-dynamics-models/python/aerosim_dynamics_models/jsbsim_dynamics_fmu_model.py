@@ -318,6 +318,14 @@ class jsbsim_dynamics_fmu_model(Fmi3Slave):
         pass
 
     def do_step(self, current_time: float, step_size: float) -> bool:
+        """
+        Do step method
+        
+        Args:
+            current_time: current time of the simulation
+            step_size: time step size
+        """
+        
         # print(f"do_step. t={current_time:.6f} step_size={step_size:.6f}")
         if self.jsbsim is None:
             print("ERROR: JSBSim not initialized.")

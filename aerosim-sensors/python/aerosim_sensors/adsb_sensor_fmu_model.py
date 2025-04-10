@@ -51,6 +51,14 @@ class adsb_sensor_fmu_model(Fmi3Slave):
         pass
 
     def do_step(self, current_time: float, step_size: float) -> bool:
+        """
+        Do step method
+        
+        Args:
+            current_time: current time of the simulation
+            step_size: time step size
+        """
+        
         self.time = current_time + step_size
         self._update_adsb(step_size)
         return True
@@ -60,6 +68,13 @@ class adsb_sensor_fmu_model(Fmi3Slave):
         self.time = 0.0
 
     def _update_adsb(self, dt: float):
+        """
+        Update method, called in the do_step method
+        
+        Args:
+            dt: time step size
+        """
+        
         pose = self.vehicle_state.state.pose
         position = pose.position
         velocity = self.vehicle_state.velocity

@@ -75,6 +75,14 @@ class rotor_effector_fmu_model(Fmi3Slave):
         pass
 
     def do_step(self, current_time: float, step_size: float) -> bool:
+        """
+        Do step method
+        
+        Args:
+            current_time: current time of the simulation
+            step_size: time step size
+        """
+        
         # Do time step calcs
         dt_s = (current_time + step_size) - self.time
         self.time = current_time + step_size

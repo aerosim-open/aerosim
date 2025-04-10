@@ -52,7 +52,7 @@ plugins:
             show_root_members_full_path: false
             merge_init_into_class: true
             filters:
-              - "!^_"
+              - "!^__"
 
 extra_css:
 - css/mkdocstrings.css
