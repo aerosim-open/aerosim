@@ -1,9 +1,9 @@
 """
-Autopilot DAA (Detect and Avoid) Scenario Example
+# Autopilot DAA (Detect and Avoid) Scenario Example
 
 This example demonstrates how to use the aerosim package to:
-1. Run a simulation with autopilot following predefined waypoints
-2. Stream camera images and flight data to aerosim-app
+    1. Run a simulation with autopilot following predefined waypoints
+    2. Stream camera images and flight data to aerosim-app
 
 This example loads waypoints from a file, configures the simulation,
 and runs the autopilot in waypoint-following mode.
@@ -19,13 +19,11 @@ Usage:
     aircraft to simulate a potential DAA situation. With the AeroSim App window
     active you can take manual control to avoid a collision by using an Xbox
     controller:
-        
-        - "B" button activates manual control
 
+        - "B" button activates manual control
         In hover mode (low speed):
             - Left stick controls yaw and altitude
             - Right stick controls forward speed and lateral speed  
-        
         In forward flight mode (high speed):
             - Left stick controls pitch and yaw
             - Right stick controls forward speed and roll

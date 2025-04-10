@@ -46,6 +46,7 @@ dev-dependencies = [
     "opencv-python>=4.11.0.86",
     "numpy>=2.2.3",
     "black>=25.1.0",
+    "mkdocstrings-python>=1.16.10",
 ]
 
 [tool.rye.workspace]

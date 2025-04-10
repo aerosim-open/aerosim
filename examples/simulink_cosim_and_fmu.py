@@ -1,9 +1,9 @@
 """
-Simulink Co-Simulation and FMU Example
+# Simulink Co-Simulation and FMU Example
 
 This example demonstrates how to use the aerosim package to:
-1. Run a simulation that co-simulates with Simulink
-2. Stream camera images to aerosim-app
+    1. Run a simulation that co-simulates with Simulink
+    2. Stream camera images to aerosim-app
 
 This example shows how to integrate AeroSim with Simulink models
 for advanced control and simulation capabilities.

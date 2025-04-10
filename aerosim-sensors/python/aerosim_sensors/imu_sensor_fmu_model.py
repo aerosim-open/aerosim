@@ -12,6 +12,7 @@ from pythonfmu3 import Fmi3Slave
 
 # Note: The class name is used as the FMU file name
 class imu_sensor_fmu_model(Fmi3Slave):
+    """IMU Sensor Publish Model"""
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -51,6 +52,14 @@ class imu_sensor_fmu_model(Fmi3Slave):
         pass
 
     def do_step(self, current_time: float, step_size: float) -> bool:
+        """
+        Do step method
+        
+        Args:
+            current_time: current time of the simulation
+            step_size: time step size
+        """
+        
         # Update the time variable
         self.time = current_time + step_size
         self._update_imu(step_size)
@@ -61,6 +70,13 @@ class imu_sensor_fmu_model(Fmi3Slave):
         self.time = 0.0
 
     def _update_imu(self, dt: float):
+        """
+        Update method, called in the do_step method
+        
+        Args:
+            dt: time step size
+        """
+
         pose = self.vehicle_state.state.pose
         velocity = self.vehicle_state.velocity
         q = pose.orientation
