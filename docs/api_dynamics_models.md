@@ -1,4 +1,4 @@
-# Dynamics models
+# aerosim-dynamics-models
 
 Modules with dynamics models specifications used to build FMU files.
 All these classes inherit from the `pythonfmu3.Fmi3Slave` class, from the [pythonfmu3](https://pypi.org/project/pythonfmu3/) package, which enables to build co-simulation FMUs with python.

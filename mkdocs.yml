@@ -31,9 +31,10 @@ nav:
   - Simulink integration: 'simulink_integration.md'
   - SimReady asset creation: 'usd_asset_pipeline.md'
 - API reference:
-  - AeroSim: 'api_aerosim.md'
-  - AeroSim data: 'api_aerosim_data.md'
-  - Dynamics models: 'api_dynamics_models.md'
+  - aerosim: 'api_aerosim.md'
+  - aerosim-data: 'api_aerosim_data.md'
+  - aerosim-sensors: 'api_aerosim_sensors.md'
+  - aerosim-dynamics-models: 'api_dynamics_models.md'
 
 plugins:
   - search

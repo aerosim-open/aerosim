@@ -9,6 +9,7 @@ from pythonfmu3 import Fmi3Slave
 
 # Note: The class name is used as the FMU file name
 class gnss_sensor_fmu_model(Fmi3Slave):
+    """GNSS Sensor Publish Model"""
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
