@@ -13,6 +13,7 @@ from pythonfmu3 import Fmi3Slave
 
 # Note: The class name is used as the FMU file name
 class rotor_effector_fmu_model(Fmi3Slave):
+    """Rotor effector FMU model."""
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 

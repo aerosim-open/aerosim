@@ -70,6 +70,7 @@ class effector:
 
 # Note: The class name is used as the FMU file name
 class evtol_effectors_fmu_model(Fmi3Slave):
+    """EVTOL Effector FMU model."""
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 

@@ -1,17 +1,17 @@
 """
-Pilot Control with Flight Deck Example
+# Pilot Control with Flight Deck Example
 
 This example demonstrates how to run a simulation to fly an airplane with a
 flight deck in three modes:
-  1. Joystick direct control of flight control surfaces (Xbox controller mapping)
-  2. Keyboard control of autopilot setpoints (airspeed, altitude, heading)
-  3. Autopilot control by flight plan waypoints (example_flight_plan.json)
+    1. Joystick direct control of flight control surfaces (Xbox controller mapping)
+    2. Keyboard control of autopilot setpoints (airspeed, altitude, heading)
+    3. Autopilot control by flight plan waypoints (example_flight_plan.json)
 
 Usage:
     cd examples
     python pilot_control_with_flight_deck.py
 
-    Enter "1", "2", or "3" to choose the control mode from the options listed above.
+    Enter `1`, `2`, or `3` to choose the control mode from the options listed above.
     Use keyboard or joystick inputs with the AeroSim App window active:
         
         For mode 1 using an Xbox controller

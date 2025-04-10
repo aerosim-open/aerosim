@@ -1,7 +1,7 @@
 from types import SimpleNamespace
 
 
-def dict_to_namespace(d):
+def dict_to_namespace(d: dict):
     """Convert a dictionary to a SimpleNamespace, handling nested dictionaries."""
     for key, value in d.items():
         if isinstance(value, dict):
@@ -10,6 +10,7 @@ def dict_to_namespace(d):
 
 
 def flatten_to_dict(dict_or_namespace: dict | SimpleNamespace):
+    """Flatten a dictionary or a SimpleNamespace."""
     flat_dict = {}
 
     def flatten(d, parent_key=""):

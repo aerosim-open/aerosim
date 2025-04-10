@@ -4,7 +4,6 @@ docs_dir: docs
 edit_uri: 'edit/master/docs/'
 theme: readthedocs
   
-
 nav:
 - Home: 'index.md'
 - Overview: 'overview.md'
@@ -26,4 +25,33 @@ nav:
   - Scene graph: 'scene_graph_reference.md'
   - Simulink integration: 'simulink_integration.md'
   - SimReady asset creation: 'usd_asset_pipeline.md'
-  
+- API reference:
+  - AeroSim: 'api_aerosim.md'
+  - Scripts:
+    - First flight: 'api_first_flight.md'
+    - Autpilot DAA scenario: 'api_daa.md'
+    - Pilot control with fly deck: 'api_pilot.md'
+    - Simulink co-simulation and FMU: 'api_simulink.md'
+  - AeroSim data: 'api_aerosim_data.md'
+  - Dynamics models: 'api_dynamics_models.md'
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          options:
+            show_source: false
+            docstring_style: google
+            annotations_path: brief
+            show_signature: true
+            separate_signature: true
+            show_root_toc_entry: false
+            show_root_members_full_path: false
+            merge_init_into_class: true
+            filters:
+              - "!^_"
+
+extra_css:
+- css/mkdocstrings.css

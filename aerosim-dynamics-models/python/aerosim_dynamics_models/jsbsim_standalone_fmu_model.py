@@ -17,6 +17,7 @@ from pythonfmu3 import Fmi3Slave
 
 # Note: The class name is used as the FMU file name
 class jsbsim_standalone_fmu_model(Fmi3Slave):
+    """JSBIM standalone FMU model.`"""
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
