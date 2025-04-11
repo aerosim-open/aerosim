@@ -1,0 +1,159 @@
+{
+    "description": "Example of using a trajectory follower as an FMU.",
+    "clock": {
+        "step_size_ms": 20,
+        "pace_1x_scale": true
+    },
+    "orchestrator": {
+        "sync_topics": [
+            {
+                "topic": "aerosim.actor1.vehicle_state",
+                "interval_ms": 20
+            }
+        ]
+    },
+    "world": {
+        "update_interval_ms": 20,
+        "origin": {
+            "latitude": 33.74625,
+            "longitude": -118.25619,
+            "altitude": 116.09
+        },
+        "weather": {
+            "preset": "Cloudy"
+        },
+        "actors": [
+            {
+                "actor_name": "actor1",
+                "actor_asset": "vehicles/generic_airplane/generic_airplane",
+                "parent": "",
+                "description": "Generic aircraft model",
+                "transform": {
+                    "position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "state": {
+                    "msg_type": "aerosim::types::VehicleState",
+                    "topic": "aerosim.actor1.vehicle_state"
+                },
+                "effectors": [
+                    {
+                        "id": "propeller_front",
+                        "relative_path": "generic_airplane/propeller",
+                        "transform": {
+                            "translation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "rotation": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "scale": [
+                                1.0,
+                                1.0,
+                                1.0
+                            ]
+                        },
+                        "state": {
+                            "msg_type": "aerosim::types::EffectorState",
+                            "topic": "aerosim.actor1.propeller.effector_state"
+                        }
+                    }
+                ],
+                "trajectory_visualization": {
+                    "msg_type": "aerosim::types::TrajectoryVisualization",
+                    "topic": "aerosim.actor1.trajectory_visualization"
+                }
+            }
+        ],
+        "sensors": [
+            {
+                "sensor_name": "rgb_camera_0",
+                "type": "sensors/cameras/rgb_camera",
+                "parent": "actor1",
+                "transform": {
+                    "translation": [
+                        -20.0,
+                        0.0,
+                        -5.0
+                    ],
+                    "rotation": [
+                        0.0,
+                        -10.0,
+                        0.0
+                    ]
+                },
+                "parameters": {
+                    "resolution": [
+                        1920,
+                        1080
+                    ],
+                    "tick_rate": 0.02,
+                    "frame_rate": 30,
+                    "fov": 90,
+                    "near_clip": 0.1,
+                    "far_clip": 1000.0,
+                    "capture_enabled": false
+                }
+            }
+        ]
+    },
+    "renderers": [
+        {
+            "renderer_id": "0",
+            "role": "primary",
+            "sensors": [
+                "rgb_camera_0"
+            ],
+            "viewport_config": {
+                "active_camera": "rgb_camera_0"
+            }
+        }
+    ],
+    "fmu_models": [
+        {
+            "id": "trajectory_follower",
+            "fmu_model_path": "examples/fmu/trajectory_follower_fmu_model.fmu",
+            "component_input_topics": [],
+            "component_output_topics": [
+                {
+                    "msg_type": "aerosim::types::VehicleState",
+                    "topic": "aerosim.actor1.vehicle_state"
+                },
+                {
+                    "msg_type": "aerosim::types::TrajectoryVisualization",
+                    "topic": "aerosim.actor1.trajectory_visualization"
+                }
+            ],
+            "fmu_aux_input_mapping": {},
+            "fmu_aux_output_mapping": {},
+            "fmu_initial_vals": {
+                "waypoints_json_path": "trajectories/12345_generated_trajectory.json",
+                "display_future_trajectory": true,
+                "display_past_trajectory": true,
+                "highlight_user_defined_waypoints": true,
+                "number_of_future_waypoints": 1,
+                "use_linear_interpolation": false,
+                "time_step_in_seconds": 0.01,
+                "curvature_roll_factor": 1.0,
+                "max_roll_rate_deg_per_second": 10.0
+            }
+        }
+    ]
+}

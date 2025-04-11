@@ -93,6 +93,8 @@ __Weather__
 
 The `weather` field of the `world` section defines the weather preset for the simulation. There are 3 options, `Cloudy`, `ClearSky` and `FoggyAndCloudy`:
 
+⚠️ Note: The Omniverse renderer does not support different weather presets.
+
 ```json
 
         ...
