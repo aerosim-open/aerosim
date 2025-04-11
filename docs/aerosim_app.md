@@ -1,6 +1,19 @@
 # AeroSim app
 
-The [AeroSim App](https://github.com/aerosim-open/aerosim-app) is a companion interface to the AeroSim simulator useful for monitoring and interacting with AeroSim simulations. It allows the user to visualize the viewport of the simulation, view additional streaming cameras, receive the flight data information through the builtin Primary Flight Display (PFD) and control the simulation in some scripts using either the keyboard or a gamepad. The app is downloaded and installed when running the `install_aerosim.sh/bat` script, ensure that you have the [_aerosim-app_ repository](https://github.com/aerosim-open/aerosim-app) cloned.
+The [AeroSim App](https://github.com/aerosim-open/aerosim-app) is a companion interface to the AeroSim simulator useful for monitoring and interacting with AeroSim simulations. It allows the user to visualize the viewport of the simulation, view additional streaming cameras, receive the flight data information through the builtin Primary Flight Display (PFD) and control the simulation in some scripts using either the keyboard or a gamepad.
+
+## Table of Contents
+1. [Launching the app](#launching-the-app)
+2. [Control the simulation](#control-the-simulation)
+    - [first_flight.py](#first_flightpy)
+    - [autopilot_daa_scenario.py](#autopilot_daa_scenariopy)
+    - [pilot_control_with_flight_deck.py](#pilot_control_with_flight_deckpy)
+3. [PFD Components](#pfd-components)
+4. [Running the app independently](#running-the-app-independently)
+
+## Launching the app
+
+The app is downloaded and installed when running the `install_aerosim.sh/bat` script, ensure that you have the [_aerosim-app_ repository](https://github.com/aerosim-open/aerosim-app) cloned.
 
 To visualize and control a simulation through the app, just launch AeroSim enabling the Pixel Streaming, to allow to stream viewport images from the renderer:
 
@@ -44,7 +57,7 @@ Once the python script is running, press the *reload* symbol on the top left han
 
 ![stream_level_editor](https://github.com/aerosim-open/aerosim-app/raw/main/images/app_example.jpg)
 
-You can toggle the Pilot Flight Display (PFD) with the instrument icon and the camera view with the camera icon in the top left of the screen:
+You can toggle the *Pilot Flight Display (PFD)* with the instrument icon and the *camera view* with the camera icon in the top left of the screen:
 
 ![aerosim_app_views](https://github.com/aerosim-open/aerosim-app/raw/main/images/buttons.png)
 
