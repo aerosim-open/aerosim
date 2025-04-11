@@ -1,0 +1,31 @@
+{
+    "description": "Empty scene for altitude offset measurements",
+    "clock": {
+        "step_size_ms": 20,
+        "pace_1x_scale": true
+    },
+    "orchestrator": {
+        "sync_topics": []
+    },
+    "world": {
+        "update_interval_ms": 20,
+        "origin": {
+            "latitude": 33.936519,
+            "longitude": -118.412698,
+            "altitude": 0.0
+        },
+        "weather":{
+            "preset": "Cloudy",
+        },
+        "actors": [],
+        "sensors": []
+    },
+    "renderers": [
+        {
+            "renderer_id": "0",
+            "role": "primary",
+            "sensors": []
+        }
+    ],
+    "fmu_models": []
+}
