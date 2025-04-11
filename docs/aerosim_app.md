@@ -1,6 +1,6 @@
 # AeroSim app
 
-The AeroSim App is a companion interface to the AeroSim simulator useful for monitoring and interacting with AeroSim simulations. It allows the user to visualize the viewport of the simulation, view additional streaming cameras, receive the flight data information through the builtin Primary Flight Display (PFD) and control the simulation in some scripts using either the keyboard or a gamepad. The app is downloaded and installed when running the `install_aerosim.sh/bat` script, ensure that you have the *aerosim-app* repository cloned.
+The [AeroSim App](https://github.com/aerosim-open/aerosim-app) is a companion interface to the AeroSim simulator useful for monitoring and interacting with AeroSim simulations. It allows the user to visualize the viewport of the simulation, view additional streaming cameras, receive the flight data information through the builtin Primary Flight Display (PFD) and control the simulation in some scripts using either the keyboard or a gamepad. The app is downloaded and installed when running the `install_aerosim.sh/bat` script, ensure that you have the [_aerosim-app_ repository](https://github.com/aerosim-open/aerosim-app) cloned.
 
 To visualize and control a simulation through the app, just launch AeroSim enabling the Pixel Streaming, to allow to stream viewport images from the renderer:
 
@@ -33,6 +33,7 @@ cd examples/
 python autopilot_daa_scenario.py
 ```
 
+- Windows:
 ```sh
 .\.venv\Scripts\activate
 cd examples\
@@ -41,11 +42,11 @@ python autopilot_daa_scenario.py
 
 Once the python script is running, press the *reload* symbol on the top left hand side of the app to reload its state and see the ongoing simulation in the app:
 
-![stream_level_editor](img/aerosim_app_daa_scenario.png)
+![stream_level_editor](https://github.com/aerosim-open/aerosim-app/raw/main/images/app_example.jpg)
 
 You can toggle the Pilot Flight Display (PFD) with the instrument icon and the camera view with the camera icon in the top left of the screen:
 
-![aerosim_app_views](img/app_buttons.png)
+![aerosim_app_views](https://github.com/aerosim-open/aerosim-app/raw/main/images/buttons.png)
 
 You can drag and resize them to set them in the preferred configuration.
 
@@ -78,14 +79,12 @@ In the autopilot DAA (Detect and Avoid) example, the EVTOL aircraft will take of
 During the flight, an intruder airplane will fly towards the EVTOL aircraft to simulate a potential DAA situation. With the AeroSim App window active you can take manual control to avoid a collision by using a gamepad (such as an Xbox controller):
         
 - `B` button activates manual control
-
-In hover mode (low speed):
-- Left stick controls yaw and altitude
-- Right stick controls forward speed and lateral speed  
-
-In forward flight mode (high speed):
-- Left stick controls pitch and yaw
-- Right stick controls forward speed and roll
+- In hover mode (low speed):
+    - Left stick controls yaw and altitude
+    - Right stick controls forward speed and lateral speed  
+- In forward flight mode (high speed):
+    - Left stick controls pitch and yaw
+    - Right stick controls forward speed and roll
 
 ### [pilot_control_with_flight_deck.py](https://github.com/aerosim-open/aerosim/blob/main/examples/pilot_control_with_flight_deck.py)
 
@@ -114,7 +113,7 @@ Enter `1`, `2`, or `3` in the terminal to choose the control mode from the optio
 
 When running the simulation you will be able to see a small screen with some UI elements. This is the Primary Flight Display (PFD) that is useful gor giving the pilot information about the current flight situatiation.
 
-![PFD elements](img/app_pfd.png)
+![PFD elements](https://github.com/aerosim-open/aerosim-app/raw/main/images/pfd.png)
 
 1. Airspeed tape:
 
