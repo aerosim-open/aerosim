@@ -58,12 +58,26 @@ The WSL2 networking mode should be set to **NAT** for best latency performance w
 
 To use Unreal as a renderer, download Unreal Engine 5.3 or clone and build it from source, and then set a `AEROSIM_UNREAL_ENGINE_ROOT` environment variable to its location.
 
-### Download Unreal Engine 5.3
+### Option 1: Downloading Unreal Engine 5.3 from Epic Games Store
 
-Download Unreal Engine 5.3 using the Epic Games Launcher installed from [this link](https://www.unrealengine.com/en-US/download).
-Alternatively, you can follow the instructions in the next section to build from source.
+Download and install the Epic Games Launcher.
+You can get it from https://www.unrealengine.com/download.
 
-### Clone and build Unreal Engine 5.3 from source
+Once the launcher is installed, open it and sign in with your Epic Games account. Create one if you don’t already have it.
+
+Navigate to the Unreal Engine tab. In the left sidebar of the Epic Games Launcher, click on Unreal Engine.
+
+Click on the Library tab inside the Unreal Engine section.
+
+Click the "+" button to add a new engine version.
+
+From the dropdown, choose 5.3.x.
+
+Click Install and select the installation location.
+
+Once installation is complete, click Launch next to the installed version to start Unreal Engine 5.3.
+
+### Option 2: Clone and build Unreal Engine 5.3 from source
 
 In order to authorise the download of the Unreal Engine 5.3 repository, you must link your GitHub account with Epic Games. Follow [this guide](https://www.unrealengine.com/en-US/ue-on-github) to link your accounts. You will need to provide your GitHub credentials (username and [token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)) to authorise the download. You may also wish to [authorize to GitHub through SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh).
 
