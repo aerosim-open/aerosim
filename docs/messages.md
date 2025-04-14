@@ -3,13 +3,14 @@
 This page documents the message and data type structures for the topics used by the components of AeroSim to exchange data. See the [aerosim-data](https://github.com/aerosim-open/aerosim/tree/main/aerosim-data) module for more information.
 
 * [ActorState](#actorstate)
-* [AirCraftEffectorCommand](#aircrafteffectorcommand)
+* [AircraftEffectorCommand](#aircrafteffectorcommand)
 * [AutopilotCommand](#autopilotcommand)
 * [CameraInfo](#camerainfo)
 * [CompressedImage](#compressedimage)
 * [FlightControlCommand](#flightcontrolcommand)
 * [Image](#image)
 * [Pose](#pose)
+* [PrimaryFlightDisplayData](#primaryflightdisplaydata)
 * [Quaternion](#quaternion)
 * [TimeStamp](#timestamp)
 * [Vector3](#vector3)
@@ -27,7 +28,9 @@ Fields:
 
 ---
 
-## AirCraftEffectorCommand
+## AircraftEffectorCommand
+
+Data type with input to flight dynamics model, output from flight controller.
 
 Fields:
 
@@ -46,8 +49,15 @@ Fields:
 
 ## AutopilotCommand
 
+Input to autopilot.
+
+Fields:
+
 * `flight_plan`: `String` - Flight plan information, e.g. waypoints, mission, etc.
-* `flight_plan_command`: `AutopilotFlightPlanCommand` - Flight plan execution command
+* `flight_plan_command`: `AutopilotFlightPlanCommand` - Flight plan execution command:
+    - `Stop` = 0
+    - `Run` = 1
+    - `Pause` = 2
 * `use_manual_setpoints`: `bool` - Flag to use manual setpoints instead of flight plan
 * `attitude_hold`: `bool` - Flag to hold current attitude roll/pitch/yaw if True
 * `altitude_setpoint_ft`: `f64` - Target hold altitude in feet
@@ -70,10 +80,10 @@ Fields:
 * `width`: `u32` - Width of the camera
 * `height`: `u32` - Height of the camera
 * `distortion_model`: `String` - Distortion model assumed in the camera
-* `d`: `Vec<f64>` - Distortion parameter *d*
-* `k`: `[f64; 9]` - Distortion parameter *k*
-* `r`: `[f64; 9]` - Distortion parameter *r*
-* `p`: `[f64; 12]` - Distortion parameter *p*
+* `d`: `Vec<f64>` - Camera parameter *d*
+* `k`: `[f64; 9]` - Camera parameter *k*
+* `r`: `[f64; 9]` - Camera parameter *r*
+* `p`: `[f64; 12]` - Camera parameter *p*
 
 ---
 
@@ -138,6 +148,31 @@ Fields:
 
 * `position`: `Vector3` - Actor 3D position
 * `orientation`: `Quaternion` - Actor quaternion orientation
+
+---
+
+## PrimaryFlightDisplayData
+
+Flight data to be displayed in the deck's Primary Flight Display (PFD) component.
+
+Fields:
+
+* `airspeed_kts`: `f64` - JSBSim `velocities/vc-kts`
+* `true_airspeed_kts`: `f64` - JSBSim `velocities/vtrue-kts`
+* `altitude_ft`: `f64` - JSBSim `position/h-sl-ft`
+* `target_altitude_ft`: `f64` - AutopilotCommand `altitude_setpoint_ft`
+* `altimeter_pressure_setting_inhg`: `f64` - User-set value (standard pressure = 29.92 inHG, QNH = height above MSL adjusted from local atmospheric pressure, QFE = height above airfield elevation)
+* `vertical_speed_fpm`: `f64` - JSBSim `velocities/h-dot-fps` converted to feet/min
+* `pitch_deg`: `f64` - JSBSim `attitude/pitch-rad`
+* `roll_deg`: `f64` - JSBSim `attitude/roll-rad`
+* `side_slip_fps2`: `f64` - JSBSim `accelerations/vdot-ft_sec2`
+* `heading_deg`: `f64` - JSBSim `attitude/heading-true-rad` converted to deg
+* `hsi_course_select_heading_deg`: `f64` - For GPS mode, calculated heading between prev and next waypoints
+* `hsi_course_deviation_deg`: `f64` - For GPS mode, nautical mile offset from course line converted as 5 NM = 12 deg
+* `hsi_mode`: `HSIMode` - User-set mode, start with GPS only:
+    - `GPS` = 0
+    - `VOR1` = 1
+    - `VOR2` = 2
 
 ---
 
