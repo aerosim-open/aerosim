@@ -4,7 +4,7 @@ Base input handler for AeroSim.
 This module provides the base class for handling input from various sources.
 """
 
-from typing import Dict, Any, Callable, Optional
+from typing import Callable, Optional
 
 
 class InputHandler:

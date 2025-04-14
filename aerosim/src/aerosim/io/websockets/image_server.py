@@ -7,10 +7,9 @@ This module provides a WebSocket server for streaming camera images to aerosim-a
 import asyncio
 import traceback
 import base64
-import time
 import numpy as np
 import cv2
-from typing import Set, Dict, Any, Optional, Callable, Deque
+from typing import Set, Optional, Callable, Deque
 from collections import deque
 from websockets import WebSocketServerProtocol
 import websockets

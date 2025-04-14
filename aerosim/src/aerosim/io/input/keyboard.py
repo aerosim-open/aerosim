@@ -5,7 +5,7 @@ This module provides utilities for handling keyboard input.
 """
 
 import pygame
-from typing import Dict, Any, Callable, Optional, Tuple
+from typing import Callable, Optional
 
 from .base import InputHandler
 

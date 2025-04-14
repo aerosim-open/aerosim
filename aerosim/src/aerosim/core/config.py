@@ -6,7 +6,7 @@ This module provides utilities for loading, validating, and managing simulation 
 
 import os
 import json
-from typing import Dict, Any, Optional, List, Union
+from typing import Dict, Any, Optional, List
 
 
 class SimConfig:
