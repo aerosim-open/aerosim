@@ -6,13 +6,17 @@ This page documents the message and data type structures for the topics used by 
 * [ActorState](#actorstate)
 * [AircraftEffectorCommand](#aircrafteffectorcommand)
 * [AutopilotCommand](#autopilotcommand)
+* [AutopilotFlightPlanCommand](#autopilotflightplancommand)
 * [CameraInfo](#camerainfo)
 * [CompressedImage](#compressedimage)
 * [EffectorState](#effectorstate)
 * [FlightControlCommand](#flightcontrolcommand)
 * [GNSS](#gnss)
 * [Header](#header)
+* [HSIMode](#hsimode)
 * [Image](#image)
+* [ImageEncoding](#imageencoding)
+* [ImageFormat](#imageformat)
 * [IMU](#imu)
 * [JsonData](#jsondata)
 * [PhysicalProperties](#physicalproperties)
@@ -75,10 +79,7 @@ Input to autopilot.
 Fields:
 
 * `flight_plan`: `String` - Flight plan information, e.g. waypoints, mission, etc.
-* `flight_plan_command`: [`AutopilotFlightPlanCommand`](#autopilotflightplancommand) - Flight plan execution command:
-    - `Stop` = 0
-    - `Run` = 1
-    - `Pause` = 2
+* `flight_plan_command`: [`AutopilotFlightPlanCommand`](#autopilotflightplancommand) - Flight plan execution command: `Stop`, `Run` or `Pause`.
 * `use_manual_setpoints`: `bool` - Flag to use manual setpoints instead of flight plan.
 * `attitude_hold`: `bool` - Flag to hold current attitude roll/pitch/yaw if True.
 * `altitude_setpoint_ft`: `f64` - Target hold altitude in feet.
@@ -89,6 +90,18 @@ Fields:
 * `heading_setpoint_deg`: `f64` - Target heading setpoint in degrees (0 = north, 90 = east, 180 = south, 270 = west).
 * `target_wp_latitude_deg`: `f64` - Target waypoint latitude in degrees.
 * `target_wp_longitude_deg`: `f64` - Target waypoint longitude in degrees.
+
+---
+
+## AutopilotFlightPlanCommand
+
+Enum with the different commands for the autopilot flight plan.
+
+Fields:
+
+- `Stop` = 0
+- `Run` = 1
+- `Pause` = 2
 
 ---
 
@@ -114,9 +127,7 @@ Compressed images from the [`Image`](#image) data type using [turbojpeg](https:/
 
 Fields:
 
-* `format`: `ImageFormat` - Format of the image:
-    - `JPEG`
-    - `PNG`
+* `format`: [`ImageFormat`](#imageformat) - Format of the image, either `JPEG` or `PNG`.
 * `data`: `Vec<u8>` - Image data.
 
 ---
@@ -176,6 +187,18 @@ Fields:
 
 ---
 
+## HSIMode
+
+Enum with different available HSI modes for the [`PrimaryFlightDisplayData`](#primaryflightdisplaydata).
+
+Fields:
+
+- `GPS` = 0
+- `VOR1` = 1
+- `VOR2` = 2
+
+---
+
 ## Image
 
 Data type for encoding images. Can be converted through the `compress` method to a [`CompressedImage`](#compressedimage).
@@ -185,17 +208,37 @@ Fields:
 * `camera_info`: [`CameraInfo`](#camerainfo) - Information of the camera source.
 * `height`: `u32` - Height of the image.
 * `width`: `u32` - Width of the image.
-* `encoding`: `ImageEncoding` - Type of enconding of the image:
-    - `RGB8`
-    - `RGBA8`
-    - `BGR8`
-    - `BGRA8`
-    - `MONO8`
-    - `MONO16`
-    - `YUV422`
+* `encoding`: [`ImageEncoding`](#imageencoding) - Type of enconding of the image.
 * `is_bigendian`: `u8` - Whether it is big endian or not (order of bytes encoding).
 * `step`: `u32`
 * `data`: `Vec<u8>` - Image data as a sequence of integers.
+
+---
+
+## ImageEncoding
+
+Enunm with image encoding available options.
+
+Fields:
+
+- `RGB8`
+- `RGBA8`
+- `BGR8`
+- `BGRA8`
+- `MONO8`
+- `MONO16`
+- `YUV422`
+
+---
+
+## ImageFormat
+
+Enum indicating the format of a [`CompressedImage`](#compressedimage).
+
+Fields:
+
+- `JPEG`
+- `PNG`
 
 ---
 
@@ -262,10 +305,7 @@ Fields:
 * `heading_deg`: `f64` - JSBSim `attitude/heading-true-rad` converted to deg.
 * `hsi_course_select_heading_deg`: `f64` - For GPS mode, calculated heading between prev and next waypoints.
 * `hsi_course_deviation_deg`: `f64` - For GPS mode, nautical mile offset from course line converted as 5 NM = 12 deg.
-* `hsi_mode`: `HSIMode` - User-set mode, start with GPS only:
-    - `GPS` = 0
-    - `VOR1` = 1
-    - `VOR2` = 2
+* `hsi_mode`: [`HSIMode`](#hsimode) - User-set mode, start with GPS only. Available options: `GPS`, `VOR1` and `VOR2`.
 
 ---
 
