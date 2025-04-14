@@ -2,6 +2,7 @@
 
 This page documents the message and data type structures for the topics used by the components of AeroSim to exchange data. See the [aerosim-data](https://github.com/aerosim-open/aerosim/tree/main/aerosim-data) module for more information.
 
+* [ActorModel](#actormodel)
 * [ActorState](#actorstate)
 * [AircraftEffectorCommand](#aircrafteffectorcommand)
 * [AutopilotCommand](#autopilotcommand)
@@ -14,6 +15,7 @@ This page documents the message and data type structures for the topics used by 
 * [Image](#image)
 * [IMU](#imu)
 * [JsonData](#jsondata)
+* [PhysicalProperties](#physicalproperties)
 * [Pose](#pose)
 * [PrimaryFlightDisplayData](#primaryflightdisplaydata)
 * [Quaternion](#quaternion)
@@ -23,6 +25,17 @@ This page documents the message and data type structures for the topics used by 
 * [TrajectoryWaypoints](#trajectorywaypoints)
 * [Vector3](#vector3)
 * [VehicleState](#vehiclestate)
+
+---
+
+## ActorModel
+
+Data type specifying the asset and physical properties of an actor.
+
+Fields:
+
+* `physical_properties`: [`PhysicalProperties`](#physicalproperties) - Physical properties of the actor.
+* `asset_link`: `Option<String>` - Link to the asset of the actor.
 
 ---
 
@@ -205,6 +218,18 @@ Generic data type to encode json data.
 Fields:
 
 * `data`: `String` - data to be encoded as json.
+
+---
+
+## PhysicalProperties
+
+Physical properties of an actor.
+
+Fields:
+
+* `mass`: `f64` - Mass of the actor.
+* `inertia_tensor`: [`Vector3`](#vector3) - Inertia tensor of the actor, indicated as a vector.
+* `moment_of_inertia`: [`Vector3`](#vector3) - Moment of inertia of the actor.
 
 ---
 
