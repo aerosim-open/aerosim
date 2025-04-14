@@ -101,7 +101,7 @@ asyncio.run(start_websocket_servers())
   - `aerosim.io.input`: Input handling
 - `aerosim.visualization`: Visualization utilities
 - `aerosim.utils`: Common utility functions along with data processing and artificial track generation
-   - Refer to [Utils Readme](aerosim\aerosim\src\aerosim\utils\README_utils.md)
+   - Refer to [Utils Readme](aerosim/src/aerosim/utils/README_utils.md)
 
 
 ## Examples
