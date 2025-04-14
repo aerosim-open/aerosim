@@ -99,6 +99,16 @@ Fields:
 
 ---
 
+## EffectorState
+
+Data type with effector state information, used in the FMU models definition.
+
+Fields:
+
+* `pose`: `Pose` - Actor pose.
+
+---
+
 ## FlightControlCommand
 
 Data type used as input to a flight controller, got as output from (auto)pilot.
@@ -115,6 +125,20 @@ Fields:
 * `landing_gear_cmd`: `f64` - Landing gear command. Scales between 0.0 (stowed) amd 1.0 (extended).
 * `wheel_steer_cmd`: `f64` - Wheel steer for taxi. Scales between -1.0 (left) and 1.0 (right).
 * `wheel_brake_cmd`: `f64` - Wheel brake command. Scales between 0.0 (off) and 1.0 (full strength).
+
+---
+
+## GNSS
+
+GNSS message.
+
+Fields:
+
+* `latitude`: `f64` - Data latitude.
+* `longitude`: `f64` - Data longitude.
+* `altitude`: `f64` - Data altitude.
+* `velocity`: `Vector3` - 3D velocity.
+* `heading`: `f64` - Heading.
 
 ---
 
@@ -152,6 +176,26 @@ Fields:
 * `data`: `Vec<u8>` - Image data as a sequence of integers.
 
 ---
+
+## IMU
+
+IMU sensor messages.
+
+Fields:
+
+* `acceleration`: `Vector3` - Acceleration data.
+* `gyroscope`: `Vector3` - Gyroscope data, with angular velocity information.
+* `magnetic_field`: `Vector3` - Magnetic field data.
+
+---
+
+## JsonData
+
+Generic data type to encode json data.
+
+Fields:
+
+* `data`: `String` - data to be encoded as json.
 
 ## Pose
 
