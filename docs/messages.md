@@ -7,9 +7,13 @@ This page documents the message and data type structures for the topics used by 
 * [AutopilotCommand](#autopilotcommand)
 * [CameraInfo](#camerainfo)
 * [CompressedImage](#compressedimage)
+* [EffectorState](#effectorstate)
 * [FlightControlCommand](#flightcontrolcommand)
+* [GNSS](#gnss)
 * [Header](#header)
 * [Image](#image)
+* [IMU](#imu)
+* [JsonData](#jsondata)
 * [Pose](#pose)
 * [PrimaryFlightDisplayData](#primaryflightdisplaydata)
 * [Quaternion](#quaternion)
@@ -25,7 +29,7 @@ Data type with generic actor information.
 
 Fields:
 
-* `pose`: `Pose` - Actor pose.
+* `pose`: [`Pose`](#pose) - Actor pose.
 
 ---
 
@@ -55,7 +59,7 @@ Input to autopilot.
 Fields:
 
 * `flight_plan`: `String` - Flight plan information, e.g. waypoints, mission, etc.
-* `flight_plan_command`: `AutopilotFlightPlanCommand` - Flight plan execution command:
+* `flight_plan_command`: [`AutopilotFlightPlanCommand`](#autopilotflightplancommand) - Flight plan execution command:
     - `Stop` = 0
     - `Run` = 1
     - `Pause` = 2
@@ -90,11 +94,13 @@ Fields:
 
 ## CompressedImage
 
-Compressed images from the `Image` data type using [turbojpeg](https://docs.rs/turbojpeg/latest/turbojpeg/) via the method `compress`. Can be decompress to an `Image` type through the `decompress` method. Dimensions of the image are encoded in the compression.
+Compressed images from the [`Image`](#image) data type using [turbojpeg](https://docs.rs/turbojpeg/latest/turbojpeg/) via the method `compress`. Can be decompress to an [`Image`](#image) type through the `decompress` method. Dimensions of the image are encoded in the compression.
 
 Fields:
 
-* `format`: `ImageFormat` - Format of the image, `JPEG` or `PNG`.
+* `format`: `ImageFormat` - Format of the image:
+    - `JPEG`
+    - `PNG`
 * `data`: `Vec<u8>` - Image data.
 
 ---
@@ -105,7 +111,7 @@ Data type with effector state information, used in the FMU models definition.
 
 Fields:
 
-* `pose`: `Pose` - Actor pose.
+* `pose`: [`Pose`](#pose) - Actor pose.
 
 ---
 
@@ -137,7 +143,7 @@ Fields:
 * `latitude`: `f64` - Data latitude.
 * `longitude`: `f64` - Data longitude.
 * `altitude`: `f64` - Data altitude.
-* `velocity`: `Vector3` - 3D velocity.
+* `velocity`: [`Vector3`](#vector3) - 3D velocity.
 * `heading`: `f64` - Heading.
 
 ---
@@ -148,8 +154,8 @@ Header present in all messages.
 
 Fields:
 
-* `timestamp_sim`: `TimeStamp` - Discrete simulation time. A sentinel value `{sec: i32::MIN, nanosec: 0}` is set when the simulation time is not specified.
-* `timestamp_platform`: `TimeStamp` - Absolute platform time since the Unix Epoch.
+* `timestamp_sim`: [`TimeStamp`](#timestamp) - Discrete simulation time. A sentinel value `{sec: i32::MIN, nanosec: 0}` is set when the simulation time is not specified.
+* `timestamp_platform`: [`TimeStamp`](#timestamp) - Absolute platform time since the Unix Epoch.
 * `frame_id`: `String` - Identifier for the frame.
 
 ---
@@ -160,7 +166,7 @@ Data type for encoding images. Can be converted through the `compress` method to
 
 Fields:
 
-* `camera_info`: `CameraInfo` - Information of the camera source.
+* `camera_info`: [`CameraInfo`](#camerainfo) - Information of the camera source.
 * `height`: `u32` - Height of the image.
 * `width`: `u32` - Width of the image.
 * `encoding`: `ImageEncoding` - Type of enconding of the image:
@@ -183,9 +189,9 @@ IMU sensor messages.
 
 Fields:
 
-* `acceleration`: `Vector3` - Acceleration data.
-* `gyroscope`: `Vector3` - Gyroscope data, with angular velocity information.
-* `magnetic_field`: `Vector3` - Magnetic field data.
+* `acceleration`: [`Vector3`](#vector3) - Acceleration data.
+* `gyroscope`: [`Vector3`](#vector3) - Gyroscope data, with angular velocity information.
+* `magnetic_field`: [`Vector3`](#vector3) - Magnetic field data.
 
 ---
 
@@ -203,8 +209,8 @@ Data type with position and orientation information of an actor.
 
 Fields:
 
-* `position`: `Vector3` - Actor 3D position.
-* `orientation`: `Quaternion` - Actor quaternion orientation.
+* `position`: [`Vector3`](#vector3) - Actor 3D position.
+* `orientation`: [`Quaternion`](#quaternion) - Actor quaternion orientation.
 
 ---
 
@@ -271,8 +277,8 @@ Data type containing information about the vehicle state, including pose, veloci
 
 Fields:
 
-* `state`: `ActorState` - Combined actor state information.
-* `velocity`: `Vector3` - Actor velocity in m/s.
-* `angular_velocity`: `Vector3` - Actor angular velocity in rad/s.
-* `acceleration`: `Vector3` - Actor acceleration in m/s<sup>2</sup>.
-* `angular_acceleration`: `Vector3` - Actor angular acceleration in rad/s<sup>2</sup>.
+* `state`: [`ActorState`](#actorstate) - Combined actor state information.
+* `velocity`: [`Vector3`](#vector3) - Actor velocity in m/s.
+* `angular_velocity`: [`Vector3`](#vector3) - Actor angular velocity in rad/s.
+* `acceleration`: [`Vector3`](#vector3) - Actor acceleration in m/s<sup>2</sup>.
+* `angular_acceleration`: [`Vector3`](#vector3) - Actor angular acceleration in rad/s<sup>2</sup>.
