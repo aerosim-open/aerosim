@@ -34,6 +34,7 @@ The AeroSim project consists of several components:
 - **Input Handling**: Support for keyboard, gamepad, and remote inputs
 - **Visualization**: Camera streaming and flight display data
 - **Cross-Platform**: Works on both Windows and Linux
+- **CLI Management**: Command-line interface for installation and management
 
 ## Installation
 
@@ -44,19 +45,28 @@ The AeroSim project consists of several components:
 - [Rye](https://rye-up.com/) or [uv](https://github.com/astral-sh/uv) for Python package management
 - [Bun](https://bun.sh/) for aerosim-app (not npm)
 
-### Installation Steps
+### Installation Methods
 
-For detailed installation instructions, please refer to the build documentation for [Linux](docs/build_linux.md) and [Windows](docs/build_windows.md). Below is a quick start guide.
+#### Using pip or uv
+```bash
+# Using pip
+pip install aerosim
+
+# Using uv
+uv add aerosim
+```
+
+
+#### Manual Installation
+For detailed manual installation instructions, please refer to the build documentation for [Linux](docs/build_linux.md) and [Windows](docs/build_windows.md). Below is a quick start guide.
 
 1. Clone the repository:
-
    ```bash
    git clone https://github.com/aerosim-open/aerosim.git
    cd aerosim
    ```
 
-1. Run the pre-install and install scripts for your platform:
-
+2. Run the pre-install and install scripts for your platform:
    ```bash
    # Windows
    pre_install.bat
@@ -67,37 +77,62 @@ For detailed installation instructions, please refer to the build documentation 
    ./install_aerosim.sh
    ```
 
-1. Build AeroSim
+3. Build AeroSim:
+   ```bash
+   # Windows
+   build_aerosim.bat
 
-  ```
-  # Windows
-  build_aerosim.bat
+   # Linux
+   ./build_aerosim.sh
+   ```
 
-  # Linux
-  ./build_aerosim.sh
-  ```
+   Alternatively, you can run the following commands for more control over the steps and build options:
+   ```bash
+   # Windows
+   rye sync
+   .venv\Scripts\activate
+   rye run build
 
-  Alternatively, you can run the following commands for more control over the steps and build options:
+   # Linux
+   rye sync
+   source .venv/bin/activate
+   rye run build
+   ```
 
-  ```
-  # Windows
-  rye sync
-  .venv\Scripts\activate
-  rye run build
+#### Using CLI 
+The AeroSim CLI provides a comprehensive set of commands for installation and management:
 
-  # Linux
-  rye sync
-  source .venv/bin/activate
-  rye run build
-  ```
+```bash
+# Set AEROSIM_ROOT environment variable (optional)
+export AEROSIM_ROOT=/path/to/aerosim
+
+# Install prerequisites
+aerosim prereqs install [--path /path/to/aerosim] [--platform windows|linux]
+
+# Install all components
+aerosim install all [--path /path/to/aerosim] [--platform windows|linux]
+
+# Build components
+aerosim build all [--path /path/to/aerosim] [--platform windows|linux]
+aerosim build wheels [--path /path/to/aerosim] [--platform windows|linux]
+
+# Launch simulation
+aerosim launch unreal [--path /path/to/aerosim] [--editor] [--nogui] [--pixel-streaming] [--pixel-streaming-ip 127.0.0.1] [--pixel-streaming-port 8888] [--config Debug|Development|Shipping] [--renderer-ids "0,1,2"]
+aerosim launch omniverse [--path /path/to/aerosim] [--pixel-streaming]
+```
+
+Note: The `--path` option is optional if the `AEROSIM_ROOT` environment variable is set.
 
 ## Usage
 
 ### Running a Simulation
 
 1. Launch AeroSim with Unreal renderer and pixel streaming:
-
    ```bash
+   # Using CLI
+   aerosim launch unreal --pixel-streaming
+
+   # Or using scripts directly
    # Windows
    launch_aerosim.bat --unreal --pixel-streaming
 
@@ -105,15 +140,13 @@ For detailed installation instructions, please refer to the build documentation 
    ./launch_aerosim.sh --unreal --pixel-streaming
    ```
 
-1. Start the aerosim-app for visualization:
-
+2. Start the aerosim-app for visualization:
    ```bash
    cd ../aerosim-app
    bun run dev
    ```
 
-1. Run one of the example scripts:
-
+3. Run one of the example scripts:
    ```bash
    # First flight example program
    python examples/first_flight.py
@@ -147,6 +180,7 @@ The `aerosim` package has a modular structure:
 - `aerosim.visualization`: Visualization utilities
 - `aerosim.utils`: Common utility functions
 
+
 ## Examples
 
 The package includes several example scripts:
@@ -171,7 +205,6 @@ This will build all Rust crates and create Python wheels for installation.
 The package depends on:
 
 - Rust components:
-
   - `aerosim-controllers`: Flight control systems
   - `aerosim-core`: Core utilities
   - `aerosim-data`: Data types and middleware

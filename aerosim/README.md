@@ -9,9 +9,11 @@ AeroSim is a comprehensive flight simulation framework that combines Rust and Py
 - **Input Handling**: Process input from keyboard, gamepad, and remote sources
 - **Visualization**: Stream camera images and flight display data
 - **Cross-Platform**: Works on both Windows and Linux
+- **CLI Management**: Command-line interface for installation and management
 
 ## Installation
 
+### Using pip or uv
 ```bash
 # Using pip
 pip install aerosim
@@ -19,6 +21,37 @@ pip install aerosim
 # Using uv
 uv add aerosim
 ```
+
+### Using CLI (Recommended)
+The AeroSim CLI provides a comprehensive set of commands for installation and management:
+
+Using the AEROSIM_ROOT environment variable you can run all scripts default
+```bash
+export AEROSIM_ROOT=/path/to/aerosim
+```
+
+Example:
+```bash
+aerosim prereqs install
+```
+Using custom path:
+```bash
+# Install prerequisites
+aerosim prereqs install [--path /path/to/aerosim] [--platform windows|linux]
+
+# Install all components
+aerosim install all [--path /path/to/aerosim] [--platform windows|linux]
+
+# Build components
+aerosim build all [--path /path/to/aerosim] [--platform windows|linux]
+aerosim build wheels [--path /path/to/aerosim] [--platform windows|linux]
+
+# Launch simulation
+aerosim launch unreal [--path /path/to/aerosim] [--editor] [--nogui] [--pixel-streaming] [--pixel-streaming-ip 127.0.0.1] [--pixel-streaming-port 8888] [--config Debug|Development|Shipping] [--renderer-ids "0,1,2"]
+aerosim launch omniverse [--path /path/to/aerosim] [--pixel-streaming]
+```
+
+Note: The `--path` option is optional if the `AEROSIM_ROOT` environment variable is set.
 
 ## Quick Start
 
@@ -38,6 +71,10 @@ asyncio.run(start_websocket_servers())
 
 1. Install and launch AeroSim:
    ```bash
+   # Using CLI
+   aerosim launch unreal --pixel-streaming
+
+   # Or using scripts directly
    # Windows
    launch_aerosim.bat --unreal --pixel-streaming
 
@@ -63,7 +100,9 @@ asyncio.run(start_websocket_servers())
   - `aerosim.io.websockets`: WebSockets integration
   - `aerosim.io.input`: Input handling
 - `aerosim.visualization`: Visualization utilities
-- `aerosim.utils`: Common utility functions
+- `aerosim.utils`: Common utility functions along with data processing and artificial track generation
+   - Refer to [Utils Readme](aerosim/src/aerosim/utils/README_utils.md)
+
 
 ## Examples
 
