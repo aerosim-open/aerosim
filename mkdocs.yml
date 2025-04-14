@@ -20,7 +20,7 @@ nav:
 - Resources:
   - AeroSim app: 'aerosim_app.md'
   - Conventions: 'conventions.md'
-  - Messages: 'messages.md'
+  - Messages and data types: 'messages.md'
   - Simulation config: 'sim_config.md'
   - FMU reference: 'fmu_reference.md'
   - Scene graph: 'scene_graph_reference.md'
