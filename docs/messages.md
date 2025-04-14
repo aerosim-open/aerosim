@@ -18,6 +18,9 @@ This page documents the message and data type structures for the topics used by 
 * [PrimaryFlightDisplayData](#primaryflightdisplaydata)
 * [Quaternion](#quaternion)
 * [TimeStamp](#timestamp)
+* [TrajectoryVisualization](#trajectoryvisualization)
+* [TrajectoryVisualizationSettings](#trajectoryvisualizationsettings)
+* [TrajectoryWaypoints](#trajectorywaypoints)
 * [Vector3](#vector3)
 * [VehicleState](#vehiclestate)
 
@@ -162,7 +165,7 @@ Fields:
 
 ## Image
 
-Data type for encoding images. Can be converted through the `compress` method to a `CompressedImage`.
+Data type for encoding images. Can be converted through the `compress` method to a [`CompressedImage`](#compressedimage).
 
 Fields:
 
@@ -202,6 +205,8 @@ Generic data type to encode json data.
 Fields:
 
 * `data`: `String` - data to be encoded as json.
+
+---
 
 ## Pose
 
@@ -258,6 +263,40 @@ Fields:
 
 * `sec`: `int32` - Simulation time in seconds.
 * `nanosec`: `uint32` - Simulation time in nanoseconds beyond the given time in seconds.
+
+---
+
+## TrajectoryVisualization
+
+Aircraft Trajectory Visualization Command.
+
+Fields:
+
+* `settings`: [`TrajectoryVisualizationSettings`](#trajectoryvisualizationsettings) - Settings of the trajectory visualization.
+* `user_defined_waypoints`: [`TrajectoryWaypoints`](#trajectorywaypoints) - User defined waypoints.
+* `future_trajectory`: [`TrajectoryWaypoints`](#trajectorywaypoints) - Future waypoints of the trajectory.
+
+---
+
+## TrajectoryVisualizationSettings
+
+Settings fot the [`TrajectoryVisualization`](#trajectoryvisualization) messages.
+
+Fields:
+
+* `display_future_trajectory`: `bool` - Whether to display future trajectory points.
+* `display_past_trajectory`: `bool` - Whether to display past trajectory points.
+* `highlight_user_defined_waypoints`: `bool` - Whether to highlight those waypoints set by the user.
+* `number_of_future_waypoints`: `u64` - Indicates the number of waypoints in the future trajectory.
+---
+
+## TrajectoryWaypoints
+
+Indicate the waypoints of a trajectory by a string.
+
+Fields:
+
+* `waypoints`: `String` - string with waypoints of the trajectory.
 
 ---
 
