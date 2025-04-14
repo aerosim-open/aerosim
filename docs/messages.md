@@ -106,3 +106,17 @@ Fields:
 * `Stop` = 0
 * `Run` = 1
 * `Pause` = 2
+
+---
+
+## CompressedImage
+
+Data type enconding images from rendered with compression.
+
+Fields:
+
+* `header`: *aerosim_data/msg/Header* - Message header with timeStamp and frame ID information
+* `height`: *uint32* - Height of the image 
+* `width`: *uint32* - Width of the image
+* `format`: *string* - Format of the image
+* `data`: *sequence<uint8>* - Image data as a sequence of integers
