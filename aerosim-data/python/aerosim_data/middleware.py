@@ -8,6 +8,7 @@ Metadata = middleware.Metadata
 BincodeSerializer = middleware.BincodeSerializer
 
 class Singleton(type):
+    """Singleton type."""
     _instances = {}
     def __call__(cls, *args, **kwargs):
         if cls not in cls._instances:
@@ -23,6 +24,7 @@ def get_transport(transport):
 
 
 class BaseMiddleware(metaclass=Singleton):
+    """Base metaclass for middleware"""
     def __init__(self, transport, serializer):
         self._transport = transport
         self._serializer = serializer

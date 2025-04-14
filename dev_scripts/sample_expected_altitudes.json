@@ -1,0 +1,27 @@
+[
+    {
+        "lat": 33.9335511,
+        "lon": -118.401695,
+        "expected_hae_in_meters": -4.4255
+    },
+    {
+        "lat": 33.952055,
+        "lon": -118.402549,
+        "expected_hae_in_meters": 2.5987
+    },
+    {
+        "lat": 33.939739,
+        "lon": -118.380871,
+        "expected_hae_in_meters": -3.3831
+    },
+    {
+        "lat": 33.933703,
+        "lon": -118.418282,
+        "expected_hae_in_meters": -0.4523
+    },
+    {
+        "lat": 33.942487,
+        "lon": -118.412197,
+        "expected_hae_in_meters": 4.5698
+    }
+]

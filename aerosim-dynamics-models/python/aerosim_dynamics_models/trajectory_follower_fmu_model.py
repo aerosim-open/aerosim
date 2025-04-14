@@ -12,6 +12,7 @@ from pythonfmu3 import Fmi3Slave
 
 # Note: The class name is used as the FMU file name
 class trajectory_follower_fmu_model(Fmi3Slave):
+    """Trajectory follower FMU model."""
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -104,6 +105,14 @@ class trajectory_follower_fmu_model(Fmi3Slave):
         pass
 
     def do_step(self, current_time, step_size) -> bool:
+        """
+        Do step method
+        
+        Args:
+            current_time: current time of the simulation
+            step_size: time step size
+        """
+        
         # Do time step calcs
         self.time = current_time + step_size
 

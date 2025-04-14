@@ -60,6 +60,7 @@ cloudpickle==3.1.1
     # via dask
 colorama==0.4.6
     # via click
+    # via griffe
     # via ipython
     # via mkdocs
     # via pytest
@@ -107,6 +108,8 @@ fsspec==2024.12.0
     # via dask
 ghp-import==2.1.0
     # via mkdocs
+griffe==1.7.2
+    # via mkdocstrings-python
 h11==0.14.0
     # via httpcore
 httpcore==1.0.7
@@ -139,6 +142,7 @@ jinja2==3.1.5
     # via jupyterlab
     # via jupyterlab-server
     # via mkdocs
+    # via mkdocstrings
     # via nbconvert
 jsbsim==1.2.1
     # via aerosim-controllers
@@ -198,9 +202,14 @@ lz4==4.4.3
     # via mcap
 markdown==3.7
     # via mkdocs
+    # via mkdocs-autorefs
+    # via mkdocstrings
+    # via pymdown-extensions
 markupsafe==3.0.2
     # via jinja2
     # via mkdocs
+    # via mkdocs-autorefs
+    # via mkdocstrings
     # via nbconvert
     # via werkzeug
 matplotlib==3.10.0
@@ -220,8 +229,16 @@ mergedeep==1.3.4
 mistune==3.1.0
     # via nbconvert
 mkdocs==1.6.1
+    # via mkdocs-autorefs
+    # via mkdocstrings
+mkdocs-autorefs==1.4.1
+    # via mkdocstrings
+    # via mkdocstrings-python
 mkdocs-get-deps==0.2.0
     # via mkdocs
+mkdocstrings==0.29.1
+    # via mkdocstrings-python
+mkdocstrings-python==1.16.10
 msgpack==1.1.0
     # via fmpy
 mypy-extensions==1.0.0
@@ -307,6 +324,8 @@ pygame==2.6.1
 pygments==2.19.1
     # via ipython
     # via nbconvert
+pymdown-extensions==10.14.3
+    # via mkdocstrings
 pyparsing==3.2.1
     # via matplotlib
 pyqtgraph==0.13.7
@@ -342,6 +361,7 @@ pyyaml==6.0.2
     # via jupyter-events
     # via mkdocs
     # via mkdocs-get-deps
+    # via pymdown-extensions
     # via pyyaml-env-tag
 pyyaml-env-tag==0.1
     # via mkdocs
