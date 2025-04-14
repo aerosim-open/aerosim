@@ -5,6 +5,7 @@ This page documents the message and data type structures for the topics used by 
 * [ActorState](#actorstate)
 * [AirCraftEffectorCommand](#aircrafteffectorcommand)
 * [AutopilotCommand](#autopilotcommand)
+* [CameraInfo](#camerainfo)
 * [CompressedImage](#compressedimage)
 * [FlightControlCommand](#flightcontrolcommand)
 * [Image](#image)
@@ -66,13 +67,13 @@ Data type with information about the camera settings.
 
 Fields:
 
-* `width`: `u32`
-* `height`: `u32`
-* `distortion_model`: `String`
-* `d`: `Vec<f64>`
-* `k`: `[f64; 9]`
-* `r`: `[f64; 9]`
-* `p`: `[f64; 12]`
+* `width`: `u32` - Width of the camera
+* `height`: `u32` - Height of the camera
+* `distortion_model`: `String` - Distortion model assumed in the camera
+* `d`: `Vec<f64>` - Distortion parameter *d*
+* `k`: `[f64; 9]` - Distortion parameter *k*
+* `r`: `[f64; 9]` - Distortion parameter *r*
+* `p`: `[f64; 12]` - Distortion parameter *p*
 
 ---
 
