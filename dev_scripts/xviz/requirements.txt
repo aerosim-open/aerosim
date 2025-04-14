@@ -1,0 +1,5 @@
+xviz-avs
+easydict
+protobuf
+numpy
+websockets==10.4
