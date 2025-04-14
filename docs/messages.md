@@ -8,6 +8,7 @@ This page documents the message and data type structures for the topics used by 
 * [CameraInfo](#camerainfo)
 * [CompressedImage](#compressedimage)
 * [FlightControlCommand](#flightcontrolcommand)
+* [Header](#header)
 * [Image](#image)
 * [Pose](#pose)
 * [PrimaryFlightDisplayData](#primaryflightdisplaydata)
@@ -24,7 +25,7 @@ Data type with generic actor information.
 
 Fields:
 
-* `pose`: `Pose` - Actor pose
+* `pose`: `Pose` - Actor pose.
 
 ---
 
@@ -36,14 +37,14 @@ Fields:
 
 * `throttle_cmd`: `Vec<f64>` - Engine throttle command. Scales between 0.0 (no power) and 1.0 (max power). Values are provided in an array for multiple thrust-generating devices.
 * `aileron_cmd_angle_rad`: `Vec<f64>` - Aileron deflection command in radians.
-* `elevator_cmd_angle_rad`: `Vec<f64>` - Elevator deflection command in radians..
-* `rudder_cmd_angle_rad`: `Vec<f64>` - Rudder deflection command in radians..
-* `thrust_tilt_cmd_angle_rad`: `Vec<f64>` - Thrust tilt command in radians..
+* `elevator_cmd_angle_rad`: `Vec<f64>` - Elevator deflection command in radians.
+* `rudder_cmd_angle_rad`: `Vec<f64>` - Rudder deflection command in radians.
+* `thrust_tilt_cmd_angle_rad`: `Vec<f64>` - Thrust tilt command in radians.
 * `flap_cmd_angle_rad`: `Vec<f64>` -  Flap angle in radians.
-* `speedbrake_cmd_angle_rad`: `Vec<f64>` - Speedbrake angle in radians
-* `landing_gear_cmd`: `Vec<f64>` - Landing gear, 0.0 stowed, 1.0 deployed
-* `wheel_steer_cmd_angle_rad`: `Vec<f64>` - Wheel steer angle radians
-* `wheel_brake_cmd`: `Vec<f64>` - Wheel brake command, 1.0 fully applied, 0.0 no brake
+* `speedbrake_cmd_angle_rad`: `Vec<f64>` - Speedbrake angle in radians.
+* `landing_gear_cmd`: `Vec<f64>` - Landing gear, 0.0 stowed, 1.0 deployed.
+* `wheel_steer_cmd_angle_rad`: `Vec<f64>` - Wheel steer angle radians.
+* `wheel_brake_cmd`: `Vec<f64>` - Wheel brake command, 1.0 fully applied, 0.0 no brake.
 
 ---
 
@@ -58,16 +59,16 @@ Fields:
     - `Stop` = 0
     - `Run` = 1
     - `Pause` = 2
-* `use_manual_setpoints`: `bool` - Flag to use manual setpoints instead of flight plan
-* `attitude_hold`: `bool` - Flag to hold current attitude roll/pitch/yaw if True
-* `altitude_setpoint_ft`: `f64` - Target hold altitude in feet
-* `airspeed_hold`: `bool` - Flag to hold airspeed if True
-* `airspeed_setpoint_kts`: `f64` - Target hold airspeed in knots
-* `heading_hold`: `bool` - Flag to hold heading if True
-* `heading_set_by_waypoint`: `bool` - Flag to use waypoint as target heading instead of heading_setpoint if True
-* `heading_setpoint_deg`: `f64` - Target heading setpoint in degrees (0 = north, 90 = east, 180 = south, 270 = west)
-* `target_wp_latitude_deg`: `f64` - Target waypoint latitude in degrees
-* `target_wp_longitude_deg`: `f64` - Target waypoint longitude in degrees
+* `use_manual_setpoints`: `bool` - Flag to use manual setpoints instead of flight plan.
+* `attitude_hold`: `bool` - Flag to hold current attitude roll/pitch/yaw if True.
+* `altitude_setpoint_ft`: `f64` - Target hold altitude in feet.
+* `airspeed_hold`: `bool` - Flag to hold airspeed if True.
+* `airspeed_setpoint_kts`: `f64` - Target hold airspeed in knots.
+* `heading_hold`: `bool` - Flag to hold heading if True.
+* `heading_set_by_waypoint`: `bool` - Flag to use waypoint as target heading instead of heading_setpoint if True.
+* `heading_setpoint_deg`: `f64` - Target heading setpoint in degrees (0 = north, 90 = east, 180 = south, 270 = west).
+* `target_wp_latitude_deg`: `f64` - Target waypoint latitude in degrees.
+* `target_wp_longitude_deg`: `f64` - Target waypoint longitude in degrees.
 
 ---
 
@@ -77,13 +78,13 @@ Data type with information about the camera settings.
 
 Fields:
 
-* `width`: `u32` - Width of the camera
-* `height`: `u32` - Height of the camera
-* `distortion_model`: `String` - Distortion model assumed in the camera
-* `d`: `Vec<f64>` - Camera parameter *d*
-* `k`: `[f64; 9]` - Camera parameter *k*
-* `r`: `[f64; 9]` - Camera parameter *r*
-* `p`: `[f64; 12]` - Camera parameter *p*
+* `width`: `u32` - Width of the camera.
+* `height`: `u32` - Height of the camera.
+* `distortion_model`: `String` - Distortion model assumed in the camera.
+* `d`: `Vec<f64>` - Camera parameter *d*.
+* `k`: `[f64; 9]` - Camera parameter *k*.
+* `r`: `[f64; 9]` - Camera parameter *r*.
+* `p`: `[f64; 12]` - Camera parameter *p*.
 
 ---
 
@@ -94,7 +95,7 @@ Compressed images from the `Image` data type using [turbojpeg](https://docs.rs/t
 Fields:
 
 * `format`: `ImageFormat` - Format of the image, `JPEG` or `PNG`.
-* `data`: `Vec<u8>` - Image data
+* `data`: `Vec<u8>` - Image data.
 
 ---
 
@@ -105,15 +106,27 @@ Data type used as input to a flight controller, got as output from (auto)pilot.
 Fields:
 
 * `power_cmd`: `Vec<f64>` - Vehicle power command. Scales between 0.0 (no power) and 1.0 (max power). Values are provided in an array for multiple thrust-generating devices.
-* `roll_cmd`: `f64` - Vehicle roll command. Scales between -1.0 and 1.0
-* `pitch_cmd`: `f64` - Vehicle pitch command. Scales between -1.0 and 1.0
-* `yaw_cmd`: `f64` - Vehicle yaw command. Scales between -1.0 and 1.0
-* `thrust_tilt_cmd`: `f64` - Tilt command for a tilt-rotor craft. Scales between 0.0 and 1.0
-* `flap_cmd`: `f64` - Flap state command. Scales between 0.0 and 1.0
-* `speedbrake_cmd`: `f64` - Speed brake command. Scales between 0.0 and 1.0
-* `landing_gear_cmd`: `f64` - Landing gear command. Scales between 0.0 (stowed) amd 1.0 (extended)
-* `wheel_steer_cmd`: `f64` - Wheel steer for taxi. Scales between -1.0 (left) and 1.0 (right)
-* `wheel_brake_cmd`: `f64` - Wheel brake command. Scales between 0.0 (off) and 1.0 (full strength)
+* `roll_cmd`: `f64` - Vehicle roll command. Scales between -1.0 and 1.0.
+* `pitch_cmd`: `f64` - Vehicle pitch command. Scales between -1.0 and 1.0.
+* `yaw_cmd`: `f64` - Vehicle yaw command. Scales between -1.0 and 1.0.
+* `thrust_tilt_cmd`: `f64` - Tilt command for a tilt-rotor craft. Scales between 0.0 and 1.0.
+* `flap_cmd`: `f64` - Flap state command. Scales between 0.0 and 1.0.
+* `speedbrake_cmd`: `f64` - Speed brake command. Scales between 0.0 and 1.0.
+* `landing_gear_cmd`: `f64` - Landing gear command. Scales between 0.0 (stowed) amd 1.0 (extended).
+* `wheel_steer_cmd`: `f64` - Wheel steer for taxi. Scales between -1.0 (left) and 1.0 (right).
+* `wheel_brake_cmd`: `f64` - Wheel brake command. Scales between 0.0 (off) and 1.0 (full strength).
+
+---
+
+## Header
+
+Header present in all messages.
+
+Fields:
+
+* `timestamp_sim`: `TimeStamp` - Discrete simulation time. A sentinel value `{sec: i32::MIN, nanosec: 0}` is set when the simulation time is not specified.
+* `timestamp_platform`: `TimeStamp` - Absolute platform time since the Unix Epoch.
+* `frame_id`: `String` - Identifier for the frame.
 
 ---
 
@@ -123,9 +136,9 @@ Data type for encoding images. Can be converted through the `compress` method to
 
 Fields:
 
-* `camera_info`: `CameraInfo` - Information of the camera source
-* `height`: `u32` - Height of the image
-* `width`: `u32` - Width of the image 
+* `camera_info`: `CameraInfo` - Information of the camera source.
+* `height`: `u32` - Height of the image.
+* `width`: `u32` - Width of the image.
 * `encoding`: `ImageEncoding` - Type of enconding of the image:
     - `RGB8`
     - `RGBA8`
@@ -134,9 +147,9 @@ Fields:
     - `MONO8`
     - `MONO16`
     - `YUV422`
-* `is_bigendian`: `u8` - Whether it is big endian or not (order of bytes encoding)
+* `is_bigendian`: `u8` - Whether it is big endian or not (order of bytes encoding).
 * `step`: `u32`
-* `data`: `Vec<u8>` - Image data as a sequence of integers
+* `data`: `Vec<u8>` - Image data as a sequence of integers.
 
 ---
 
@@ -146,8 +159,8 @@ Data type with position and orientation information of an actor.
 
 Fields:
 
-* `position`: `Vector3` - Actor 3D position
-* `orientation`: `Quaternion` - Actor quaternion orientation
+* `position`: `Vector3` - Actor 3D position.
+* `orientation`: `Quaternion` - Actor quaternion orientation.
 
 ---
 
@@ -157,18 +170,18 @@ Flight data to be displayed in the deck's Primary Flight Display (PFD) component
 
 Fields:
 
-* `airspeed_kts`: `f64` - JSBSim `velocities/vc-kts`
-* `true_airspeed_kts`: `f64` - JSBSim `velocities/vtrue-kts`
-* `altitude_ft`: `f64` - JSBSim `position/h-sl-ft`
-* `target_altitude_ft`: `f64` - AutopilotCommand `altitude_setpoint_ft`
-* `altimeter_pressure_setting_inhg`: `f64` - User-set value (standard pressure = 29.92 inHG, QNH = height above MSL adjusted from local atmospheric pressure, QFE = height above airfield elevation)
-* `vertical_speed_fpm`: `f64` - JSBSim `velocities/h-dot-fps` converted to feet/min
-* `pitch_deg`: `f64` - JSBSim `attitude/pitch-rad`
-* `roll_deg`: `f64` - JSBSim `attitude/roll-rad`
-* `side_slip_fps2`: `f64` - JSBSim `accelerations/vdot-ft_sec2`
-* `heading_deg`: `f64` - JSBSim `attitude/heading-true-rad` converted to deg
-* `hsi_course_select_heading_deg`: `f64` - For GPS mode, calculated heading between prev and next waypoints
-* `hsi_course_deviation_deg`: `f64` - For GPS mode, nautical mile offset from course line converted as 5 NM = 12 deg
+* `airspeed_kts`: `f64` - JSBSim `velocities/vc-kts`.
+* `true_airspeed_kts`: `f64` - JSBSim `velocities/vtrue-kts`.
+* `altitude_ft`: `f64` - JSBSim `position/h-sl-ft`.
+* `target_altitude_ft`: `f64` - AutopilotCommand `altitude_setpoint_ft`.
+* `altimeter_pressure_setting_inhg`: `f64` - User-set value (standard pressure = 29.92 inHG, QNH = height above MSL adjusted from local atmospheric pressure, QFE = height above airfield elevation).
+* `vertical_speed_fpm`: `f64` - JSBSim `velocities/h-dot-fps` converted to feet/min.
+* `pitch_deg`: `f64` - JSBSim `attitude/pitch-rad`.
+* `roll_deg`: `f64` - JSBSim `attitude/roll-rad`.
+* `side_slip_fps2`: `f64` - JSBSim `accelerations/vdot-ft_sec2`.
+* `heading_deg`: `f64` - JSBSim `attitude/heading-true-rad` converted to deg.
+* `hsi_course_select_heading_deg`: `f64` - For GPS mode, calculated heading between prev and next waypoints.
+* `hsi_course_deviation_deg`: `f64` - For GPS mode, nautical mile offset from course line converted as 5 NM = 12 deg.
 * `hsi_mode`: `HSIMode` - User-set mode, start with GPS only:
     - `GPS` = 0
     - `VOR1` = 1
@@ -180,10 +193,10 @@ Fields:
 
 Quaternion data type.
 
-* `w`: `f64` - Scalar component
-* `x`: `f64` - x coordinate
-* `y`: `f64` - y coordinate
-* `z`: `f64` - z coordinate
+* `w`: `f64` - Scalar component.
+* `x`: `f64` - x coordinate.
+* `y`: `f64` - y coordinate.
+* `z`: `f64` - z coordinate.
 
 ---
 
@@ -193,18 +206,18 @@ Data type containing a simulator time stamp.
 
 Fields:
 
-* `sec`: `int32` - Simulation time in seconds
-* `nanosec`: `uint32` - Simulation time in nanoseconds beyond the given time in seconds
+* `sec`: `int32` - Simulation time in seconds.
+* `nanosec`: `uint32` - Simulation time in nanoseconds beyond the given time in seconds.
 
 ---
 
 ## Vector3
 
-Generic vector 3D data type
+Generic vector 3D data type.
 
-* `x`: `f64` - x coordinate
-* `y`: `f64` - y coordinate
-* `z`: `f64` - z coordinate
+* `x`: `f64` - x coordinate.
+* `y`: `f64` - y coordinate.
+* `z`: `f64` - z coordinate.
 
 ---
 
@@ -214,8 +227,8 @@ Data type containing information about the vehicle state, including pose, veloci
 
 Fields:
 
-* `state`: `ActorState` - Combined actor state information
-* `velocity`: `Vector3` - Actor velocity in m/s
-* `angular_velocity`: `Vector3` - Actor angular velocity in rad/s
-* `acceleration`: `Vector3` - Actor acceleration in m/s<sup>2</sup>
-* `angular_acceleration`: `Vector3` - Actor angular acceleration in rad/s<sup>2</sup>
+* `state`: `ActorState` - Combined actor state information.
+* `velocity`: `Vector3` - Actor velocity in m/s.
+* `angular_velocity`: `Vector3` - Actor angular velocity in rad/s.
+* `acceleration`: `Vector3` - Actor acceleration in m/s<sup>2</sup>.
+* `angular_acceleration`: `Vector3` - Actor angular acceleration in rad/s<sup>2</sup>.
