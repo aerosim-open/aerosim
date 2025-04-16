@@ -115,7 +115,7 @@ done
 # Function to find an available terminal emulator
 find_terminal_emulator() {
     # List of common terminal emulators to try
-    terminals=("gnome-terminal" "konsole" "xfce4-terminal" "xterm")
+    terminals=("alacritty" "gnome-terminal" "konsole" "xfce4-terminal" "xterm")
 
     # First check if x-terminal-emulator exists and what it points to
     if command -v "x-terminal-emulator" >/dev/null 2>&1; then
@@ -164,7 +164,7 @@ launch_terminal() {
     local instance_id="$3"
     local terminal
     local escaped_cmd
-    
+
     local fallback_logfile=${title//[^a-zA-Z0-9]/_} # sanitize title to use as a filename
     fallback_logfile="${fallback_logfile,,}" # convert to lowercase
     if [ -n "$instance_id" ]; then
@@ -215,6 +215,9 @@ launch_terminal() {
             "x-terminal-emulator")
                 # If we couldn't determine the actual terminal, try the most compatible approach
                 "$terminal" -e bash -c "$modified_cmd" &
+                ;;
+            "alacritty")
+                "$terminal" --title="$title $instance_id" -e bash -c "$modified_cmd" &
                 ;;
             *)
                 # Default fallback for xterm and others
